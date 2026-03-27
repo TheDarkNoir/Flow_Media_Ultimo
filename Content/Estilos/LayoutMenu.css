@@ -1,0 +1,11 @@
+/* Ajustes rápidos de tamaño y estilos para el layout */
+.logo-img { max-width: 140px; height: auto; display: block; }
+.mc-user { font-size: 20px; text-decoration: none; }
+.mc-search-form { display: flex; align-items: center; }
+.mc-search-input { width: 220px; padding: 6px 8px; }
+.mc-search-btn { margin-left:6px; }
+
+@media (max-width: 480px) {
+    .logo-img { max-width: 100px; }
+    .mc-search-input { width: 120px; }
+}
