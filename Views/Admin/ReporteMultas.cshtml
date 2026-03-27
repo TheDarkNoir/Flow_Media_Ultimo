@@ -1,0 +1,42 @@
+@model List<FlowMediaWebMVC.Multa>
+
+@{
+    ViewBag.Title = "Reporte Multas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Reporte de Multas</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+    <div>No hay datos para mostrar.</div>
+}
+else
+{
+    <div class="admin-table-container">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>CÓDIGO</th>
+                    <th>FECHA</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>MONTO</th>
+                    <th>ESTADO</th>
+                    <th>CÓDIGO DEVOLUCIÓN</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var m in Model){
+                <tr>
+                    <td>@m.codigo_multa</td>
+                    <td>@m.fecha_multa</td>
+                    <td>@m.descripcion_multa</td>
+                    <td>@m.monto_multa</td>
+                    <td>@m.estado_multa</td>
+                    <td>@m.codigo_devolucion</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,71 @@
+﻿﻿@{
+    var controller = (ViewContext.RouteData.Values["controller"] as string ?? string.Empty).ToLowerInvariant();
+    var action = (ViewContext.RouteData.Values["action"] as string ?? string.Empty).ToLowerInvariant();
+    Func<string, bool> isActive = act => string.Equals(action, act.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase) && string.Equals(controller, "admin", StringComparison.OrdinalIgnoreCase);
+
+    // Obtener el nombre del usuario de la sesión de forma segura
+    string nombreUsuario = Session["Usuario"] != null ? Session["Usuario"].ToString() : "ADMIN USER";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowMedia Admin - @ViewBag.Title</title>
+    <link rel="stylesheet" href="@Url.Content("~/EstiloAdmin/Admin.css")" />
+</head>
+<body class="admin-shell">
+
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="mc-logo">
+            <img src="@Url.Content("~/Imagenes/FlowMedia.png")" alt="Flow Media" class="logo-img" />
+            <div class="mc-logo-text">
+                <span>PANEL CONTROL</span>
+                <small>ADMINISTRADOR FLOW</small>
+            </div>
+        </div>
+
+        <nav class="admin-nav">
+            <div class="admin-nav-title">MENÚ PRINCIPAL</div>
+            <ul class="admin-menu">
+                <li><a href="@Url.Action("PanelAdmin", "Admin")"><span class="icon @(isActive("PanelAdmin") ? "active" : "")">👥</span><span class="menu-label">USUARIOS</span></a></li>
+                <li><a href="@Url.Action("Productos", "Admin")"><span class="icon @(isActive("Productos") ? "active" : "")">📦</span><span class="menu-label">PRODUCTOS</span></a></li>
+                <li><a href="@Url.Action("Inventario", "Admin")"><span class="icon @(isActive("Inventario") ? "active" : "")">🏪</span><span class="menu-label">INVENTARIO / BODEGA</span></a></li>
+                <li><a href="@Url.Action("Rentas", "Admin")"><span class="icon @(isActive("Rentas") ? "active" : "")">🔄</span><span class="menu-label">RENTAS Y DEVOLUCIONES</span></a></li>
+                <li><a href="@Url.Action("Multas", "Admin")"><span class="icon @(isActive("Multas") ? "active" : "")">⚠️</span><span class="menu-label">MULTAS</span></a></li>
+                <li><a href="@Url.Action("Reportes", "Admin")"><span class="icon @(isActive("Reportes") ? "active" : "")">📊</span><span class="menu-label">REPORTES</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-bubble"></div>
+            <div class="user-info">
+                <div class="user-name">@nombreUsuario</div>
+                <div class="user-email">admin@flowmedia.com</div>
+            </div>
+            <!-- Botón de cerrar sesión en el footer -->
+            <a href="@Url.Action("Logout", "Account")" class="btn-logout-footer" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?');">
+                🚪 Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <div class="admin-main-area">
+        <header class="admin-header">
+            <div class="breadcrumb">DASHBOARD / <span>@ViewBag.Title</span></div>
+            <div class="header-actions">
+                <div class="admin-title">@ViewBag.Title</div>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

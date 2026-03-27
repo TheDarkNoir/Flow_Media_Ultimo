@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "CrearCuenta";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/CrearCuenta.css")" rel="stylesheet" />
+
+<div class="registro-page">
+    <div class="registro-card">
+
+        <h1 class="registro-title">CREAR CUENTA</h1>
+        <p class="registro-subtitle">Únete a la comunidad de Flow Media</p>
+
+        @using (Html.BeginForm("CrearCuenta", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="registro-form">
+
+                <div class="field-full">
+                    <label class="field-label">NOMBRE COMPLETO</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">👤</span>
+                        <input type="text" name="nombre_usuario" class="input" placeholder="Ej: Juan Pérez" required />
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-half">
+                        <label class="field-label">TIPO ID</label>
+                        <div class="input-wrap">
+                            <select name="tipo_identificacion_usuario" class="input select-input">
+                                <option value="CC">CC</option>
+                                <option value="CE">CE</option>
+                                <option value="PAS">PAS</option>
+                                <option value="DNI">DNI</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field-half">
+                        <label class="field-label">DOCUMENTO</label>
+                        <div class="input-wrap">
+                            <input type="text" name="numero_identificacion_usuario" class="input" placeholder="12345678" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-full">
+                    <label class="field-label">EMAIL</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">✉</span>
+                        <input type="email" name="email_usuario" class="input" placeholder="tu@email.com" required />
+                    </div>
+                </div>
+
+                <div class="field-full">
+                    <label class="field-label">CONTRASEÑA</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" name="contraseña_usuario" class="input" placeholder="••••••••" required />
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-half">
+                        <label class="field-label">DIRECCIÓN</label>
+                        <div class="input-wrap">
+                            <input type="text" name="direccion_usuario" class="input" placeholder="Calle 123..." />
+                        </div>
+                    </div>
+                    <div class="field-half">
+                        <label class="field-label">TELÉFONO</label>
+                        <div class="input-wrap">
+                            <input type="text" name="telefono_usuario" class="input" placeholder="300 123..." />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-registrar">Registrarse →</button>
+
+                <div class="registro-login-link">
+                    ¿Ya tienes cuenta? <a href="@Url.Action("Login","Account")">Ingresa aquí</a>
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <p class="msg-error">@ViewBag.Error</p>
+                }
+                @if (ViewBag.Mensaje != null)
+                {
+                    <p class="msg-success">@ViewBag.Mensaje</p>
+                }
+            </div>
+        }
+
+        <div class="registro-footer">
+            <span>🔒 PAGO SEGURO</span>
+            <span>🔄 MÚLTIPLES MÉTODOS</span>
+        </div>
+    </div>
+</div>
+
+

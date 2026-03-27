@@ -1,0 +1,369 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Detalles del producto";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+
+    var precioRenta =
+        Model.precio_producto_renta != null
+        ? Model.precio_producto_renta
+        : 0;
+
+    var idProducto =
+        Model.codigo_producto != null
+        ? Model.codigo_producto
+        : 0;
+}
+
+<div class="detalle-container">
+
+    <div class="detalle-card">
+
+        <!-- IMAGEN -->
+
+        <div class="detalle-imagen">
+
+            <img src="@Url.Content(Model.imagen_producto ?? "~/Imagenes/Nada.png")"
+                 alt="@Model.nombre_producto"
+                 class="imagen-grande" />
+
+        </div>
+
+        <!-- INFORMACION -->
+
+        <div class="detalle-info">
+
+            <h1>
+                @Model.nombre_producto
+            </h1>
+
+            <p>
+                Tipo:
+                @Model.tipo_producto
+            </p>
+
+            <p>
+                @Model.descripcion_producto
+            </p>
+
+            <hr />
+
+            <p>
+
+                Precio base:
+
+                <strong>
+
+                    @String.Format(
+                        System.Globalization.CultureInfo
+                        .GetCultureInfo("es-CO"),
+                        "{0:C0}",
+                        precioRenta
+                    )
+
+                </strong>
+
+            </p>
+
+            <label>
+                Días de renta
+            </label>
+
+            <br />
+
+            <input type="number"
+                   id="dias"
+                   value="1"
+                   min="1"
+                   class="input-dias"
+                   onchange="calcularPrecio()" />
+
+            <br />
+            <br />
+
+            <h2 id="precioFinal">
+
+                Precio total:
+
+                @String.Format(
+                    System.Globalization.CultureInfo
+                    .GetCultureInfo("es-CO"),
+                    "{0:C0}",
+                    precioRenta
+                )
+
+            </h2>
+
+            <br />
+
+            <!-- BOTON RENTAR -->
+
+            <button class="btn-rentar"
+                    onclick="rentarProducto()">
+
+                Rentar
+
+            </button>
+
+            <!-- BOTON COMPRAR -->
+
+            <button class="btn-comprar"
+                    onclick="comprarProducto()">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+    .detalle-container {
+        padding: 40px;
+    }
+
+    .detalle-card {
+        display: flex;
+        gap: 40px;
+    }
+
+    .detalle-info {
+        color: white;
+    }
+
+    .imagen-grande {
+        width: 350px;
+        height: 450px;
+        object-fit: cover;
+    }
+
+    .input-dias {
+        width: 80px;
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    .btn-rentar {
+        background: #1e6be3;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        margin-right: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .btn-comprar {
+        background: #1f8f4a;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+
+const precioBase =
+    parseFloat(
+        '@precioRenta'
+        .replace(",", ".")
+    );
+
+const productoId =
+    parseInt(
+        '@idProducto'
+    );
+
+function calcularPrecio()
+{
+    let dias =
+        parseInt(
+            document
+            .getElementById(
+                "dias"
+            ).value
+        );
+
+    if (isNaN(dias) || dias <= 0)
+    {
+        alert(
+            "Los días deben ser mayores a 0"
+        );
+
+        document
+            .getElementById(
+                "dias"
+            ).value = 1;
+
+        dias = 1;
+    }
+
+    let porcentaje = 0;
+
+    if (dias <= 3)
+        porcentaje = 0;
+
+    else if (dias <= 7)
+        porcentaje = 10;
+
+    else if (dias <= 14)
+        porcentaje = 20;
+
+    else
+        porcentaje = 30;
+
+    let aumento =
+        precioBase
+        * porcentaje
+        / 100;
+
+    let total =
+        (precioBase + aumento)
+        * dias;
+
+    document
+        .getElementById(
+            "precioFinal"
+        )
+        .innerText =
+        "Precio total: $"
+        + total.toLocaleString(
+            "es-CO"
+        );
+}
+
+function rentarProducto()
+{
+    let dias =
+        parseInt(
+            document
+            .getElementById(
+                "dias"
+            ).value
+        );
+
+    if (isNaN(dias) || dias <= 0)
+    {
+        alert(
+            "Debe seleccionar días válidos"
+        );
+        return;
+    }
+
+    fetch(
+        "/Catalog/RentarProducto",
+        {
+            method: "POST",
+
+            headers:
+            {
+                "Content-Type":
+                "application/json"
+            },
+
+            body:
+            JSON.stringify(
+            {
+                id:
+                    productoId,
+
+                dias:
+                    dias
+            })
+        }
+    )
+
+    .then(
+        response =>
+        response.json()
+    )
+
+    .then(
+        data =>
+        {
+            alert(
+                data.mensaje
+            );
+
+            if (data.success)
+            {
+                location.reload();
+            }
+        }
+    )
+
+    .catch(
+        error =>
+        {
+            alert(
+                "Error al procesar la renta"
+            );
+        }
+    );
+}
+
+function comprarProducto()
+{
+    if (!confirm(
+        "¿Desea comprar este producto?"
+    ))
+    {
+        return;
+    }
+
+    fetch(
+        "/Catalog/ComprarProducto",
+        {
+            method: "POST",
+
+            headers:
+            {
+                "Content-Type":
+                "application/json"
+            },
+
+            body:
+            JSON.stringify(
+            {
+                id:
+                    productoId
+            })
+        }
+    )
+
+    .then(
+        response =>
+        response.json()
+    )
+
+    .then(
+        data =>
+        {
+            alert(
+                data.mensaje
+            );
+
+            if (data.success)
+            {
+                location.reload();
+            }
+        }
+    )
+
+    .catch(
+        error =>
+        {
+            alert(
+                "Error al procesar la compra"
+            );
+        }
+    );
+}
+
+</script>

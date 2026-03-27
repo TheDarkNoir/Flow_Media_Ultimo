@@ -1,0 +1,85 @@
+﻿<!--No sabemos para que sirve este reporte, asi que lo dejamos comentado por ahora. 
+
+@model List<FlowMediaWebMVC.Usuario>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="admin-panel-heading">
+    <h2>USUARIOS</h2>
+</div>
+
+<div class="admin-table-container">
+
+    <div class="admin-buttons">
+        <a href="/Admin/CrearUsuario" class="btn-admin">CREAR USUARIO</a>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+    <div style="color:red;font-weight:bold;margin-bottom:15px;">
+        @TempData["Error"]
+    </div>
+    }
+
+    <table class="table-admin">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>TIPO</th>
+                <th>NOMBRE</th>
+                <th>CORREO</th>
+                <th>TELÉFONO</th>
+                <th>DIRECCIÓN</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var u in Model)
+        {
+            <tr>
+
+                <td>@u.numero_identificacion_usuario</td>
+                <td>@u.tipo_identificacion_usuario</td>
+                <td>@u.nombre_usuario</td>
+                <td>@u.email_usuario</td>
+                <td>@u.telefono_usuario</td>
+                <td>@u.direccion_usuario</td>
+
+                <td>
+
+                    <a class="btn-admin"
+                       href="/Admin/EditarUsuario/@u.numero_identificacion_usuario">
+                        Editar
+                    </a>
+
+                    <button class="btn-eliminar"
+                            onclick="confirmarEliminar(@u.numero_identificacion_usuario)">
+                        Eliminar
+                    </button>
+
+                </td>
+
+            </tr>
+        }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+    function confirmarEliminar(id) {
+        if (confirm("¿Seguro que desea eliminar este usuario?")) {
+            window.location.href = "/Admin/EliminarUsuario/" + id;
+        }
+    }
+
+</script>
+
+      -->

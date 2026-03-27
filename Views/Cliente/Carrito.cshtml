@@ -1,0 +1,39 @@
+﻿@model IEnumerable<FlowMediaWebMVC.Carrito_Detalle>
+@{
+    ViewBag.Title = "Carrito";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/Cliente.css")" rel="stylesheet" />
+
+<div class="cart-list">
+    <h2>Tu carrito</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="cart-items">
+            @foreach (var it in Model)
+            {
+                var p = it.Producto_Multimedia;
+                <div class="cart-item">
+                    <img src="@Url.Content(p != null && !string.IsNullOrEmpty(p.imagen_producto) ? "~/Imagenes/" + p.imagen_producto : "~/Imagenes/placeholder.png")" alt="item" />
+                    <div class="meta">
+                        <h4>@(p != null ? p.nombre_producto : ("Producto " + it.codigo_producto))</h4>
+                        <div>Cantidad: @(it.cantidad_detalle ?? 1)</div>
+                    </div>
+                    <div class="price">$@(p != null ? p.precio_producto.ToString("F2") : "0.00")</div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="cart-empty">
+            <h3>Tu carrito está vacío</h3>
+            <p>¡Explora nuestro catálogo y encuentra tu próximo entretenimiento!</p>
+            <a class="btn-primary" href="@Url.Action("Catalogo","Catalog")">Ir al Catálogo</a>
+        </div>
+    }
+
+</div>
+

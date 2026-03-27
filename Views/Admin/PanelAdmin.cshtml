@@ -1,0 +1,63 @@
+﻿﻿@model List<FlowMediaWebMVC.Usuario>
+
+@{
+    ViewBag.Title = "Panel Administrativo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card-panel">
+
+    <div class="card-header">
+        <div class="controls">
+            <a href="@Url.Action("PanelAdmin","Admin")" class="btn-outline">REFRESCAR</a>
+            <a href="@Url.Action("CrearUsuario","Admin")" class="btn-primary">NUEVO USUARIO</a>
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+    }
+
+    <table class="table-admin" style="margin-top:12px; width:100%;">
+        <thead>
+            <tr>
+                <th>Nombre completo</th>
+                <th>Correo electrónico</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var u in Model)
+                {
+            <tr>
+                <td>@u.nombre_usuario</td>
+                <td>@u.email_usuario</td>
+                <td>@u.telefono_usuario</td>
+                <td>
+                    @{ var roleClass = (u.tipo_usuario ?? string.Empty).Equals("Admin", StringComparison.OrdinalIgnoreCase) ? "role-admin" : "role-user"; }
+                    <span class="role-badge @roleClass">@((u.tipo_usuario ?? "Cliente").ToUpper())</span>
+                </td>
+                <td>
+                    <a href="@Url.Action("EditarUsuario","Admin", new { id = u.numero_identificacion_usuario })" class="btn-primary btn-sm" style="padding:6px 10px;font-size:12px;margin-right:8px;">Editar</a>
+                    <a href="@Url.Action("EliminarUsuario","Admin", new { id = u.numero_identificacion_usuario })" class="btn-outline btn-sm" onclick="return confirm('⚠ ¿Seguro que desea eliminar este usuario?');" style="padding:6px 10px;font-size:12px;">Eliminar</a>
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+            <tr>
+                <td colspan="5">No hay usuarios para mostrar.</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

@@ -1,0 +1,53 @@
+﻿@model FlowMediaWebMVC.Inventario
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "EDITAR INVENTARIO";
+}
+
+<div class="modal-card">
+    <div class="modal-header">
+        <h2>✏️ EDITAR INVENTARIO #@Model.codigo_inventario</h2>
+        <a href="@Url.Action("Inventario", "Admin")" class="btn-cancel" style="color: #111; text-decoration: none;">✖ CERRAR</a>
+    </div>
+
+    @using (Html.BeginForm("EditarInventario", "Admin", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.codigo_inventario)
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-group">
+            <label for="codigo_inventario">Código de Inventario</label>
+            <input type="text" class="form-control" value="@Model.codigo_inventario" readonly disabled />
+            <small class="text-muted">El código no se puede modificar</small>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fecha_ingreso_inventario">Fecha de Ingreso *</label>
+                <input type="date" name="fecha_ingreso_inventario" id="fecha_ingreso_inventario" class="form-control" value="@Model.fecha_ingreso_inventario" required />
+                @Html.ValidationMessageFor(m => m.fecha_ingreso_inventario)
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad_inventario">Cantidad *</label>
+                <input type="number" name="cantidad_inventario" id="cantidad_inventario" class="form-control" value="@Model.cantidad_inventario" min="0" required />
+                @Html.ValidationMessageFor(m => m.cantidad_inventario)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ubicacion_producto_inventario">Ubicación *</label>
+            <input type="text" name="ubicacion_producto_inventario" id="ubicacion_producto_inventario" class="form-control" value="@Model.ubicacion_producto_inventario" placeholder="Ej: Estante A - Videojuegos" required />
+            @Html.ValidationMessageFor(m => m.ubicacion_producto_inventario)
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="@Url.Action("Inventario", "Admin")" class="btn-cancel" style="text-decoration: none;">CANCELAR</a>
+        <button type="submit" class="btn-primary">ACTUALIZAR INVENTARIO</button>
+    </div>
+    }
+</div>

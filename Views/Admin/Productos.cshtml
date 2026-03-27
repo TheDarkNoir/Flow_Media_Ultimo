@@ -1,0 +1,150 @@
+﻿﻿@model IEnumerable<FlowMediaWebMVC.Producto_Multimedia>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "PRODUCTOS";
+}
+
+<div class="card-panel">
+    <div class="controls">
+        <div class="controls-left">
+            <button class="btn-outline" id="refreshBtn">
+                REFRESCAR
+            </button>
+            <a href="@Url.Action("CrearProducto", "Admin")" class="btn-primary">
+                + AÑADIR PRODUCTO
+            </a>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre, descripción o tipo..."
+                   value="@Request.QueryString["search"]" />
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+    <div class="alert alert-success" id="successAlert">
+        @TempData["SuccessMessage"]
+    </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+    <div class="alert alert-danger" id="errorAlert">
+        @TempData["ErrorMessage"]
+    </div>
+    }
+
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>PRODUCTO</th>
+                <th>PRECIO RENTA</th>
+                <th>PRECIO VENTA</th>
+                <th>TIPO</th>
+                <th>DISPONIBLE</th>
+                <th>CLASIFICACIÓN</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.codigo_producto</td>
+                <td>
+                    <strong>@item.nombre_producto</strong>
+                    @if (!string.IsNullOrEmpty(item.descripcion_producto))
+                        {
+                    <br /><small class="text-muted">@(item.descripcion_producto.Length > 50 ? item.descripcion_producto.Substring(0, 50) + "..." : item.descripcion_producto)</small>
+                        }
+                    @if (!string.IsNullOrEmpty(item.año_producto))
+                        {
+                    <br /><small class="text-muted">Año: @item.año_producto</small>
+                        }
+                </td>
+                <td>
+                    <strong>$@string.Format("{0:N0}", item.precio_producto_renta)</strong>
+                </td>
+                <td>
+                    $@string.Format("{0:N0}", item.precio_producto)
+                </td>
+                <td>
+                    <span class="badge-@(item.tipo_producto == "Videojuego" ? "juego" : "Pelicula")">
+                        @item.tipo_producto
+                    </span>
+                </td>
+                <td>
+                    <span class="@(item.cantidad_disponible_producto > 0 ? "text-success" : "text-danger")">
+                        @item.cantidad_disponible_producto unidades
+                    </span>
+                </td>
+                <td>
+                    <span class="badge">@(item.clasificacion_producto ?? "N/A")</span>
+                </td>
+                <td>
+                    <a href="@Url.Action("EditarProducto", "Admin", new { id = item.codigo_producto })"
+                       class="btn-warning" style="display: inline-block; padding: 4px 8px; margin-right: 5px;">
+                        Editar
+                    </a>
+                    <button onclick="eliminarProducto(@item.codigo_producto)"
+                            class="btn-danger" style="padding: 4px 8px;">
+                        Eliminar
+                    </button>
+                    <a href="@Url.Action("DetalleProducto", "Admin", new { id = item.codigo_producto })"
+                       class="btn-success" style="display: inline-block; padding: 4px 8px; margin-top: 5px;">
+                        Ver
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+    <div class="alert alert-warning" style="text-align: center; margin-top: 20px;">
+        No hay productos registrados. Haz clic en "+ AÑADIR PRODUCTO" para comenzar.
+    </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+        function eliminarProducto(id) {
+            if (confirm('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.')) {
+                $.ajax({
+                    url: '@Url.Action("EliminarProducto", "Admin")',
+                    type: 'POST',
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error al comunicarse con el servidor');
+                    }
+                });
+            }
+        }
+
+        $('#searchInput').on('keyup', function () {
+            var search = $(this).val();
+            if (search.length >= 2 || search.length === 0) {
+                window.location.href = '@Url.Action("Productos", "Admin")?search=' + encodeURIComponent(search);
+            }
+        });
+
+        $('#refreshBtn').on('click', function () {
+            window.location.href = '@Url.Action("Productos", "Admin")';
+        });
+
+        setTimeout(function () {
+            $('#successAlert, #errorAlert').fadeOut('slow');
+        }, 3000);
+    </script>
+}

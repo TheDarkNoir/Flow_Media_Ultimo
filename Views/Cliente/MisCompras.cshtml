@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "MisCompras";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/MisCompras_Rentas.css")" rel="stylesheet" />
+
+<div class="perfil-page">
+    <aside class="perfil-sidebar">
+        <div class="perfil-avatar">
+            <div class="avatar-circle">@((Session["Usuario"] as string ?? "U").Substring(0,1).ToUpper())</div>
+            <div class="perfil-name">@((Session["Usuario"] as string) ?? "Usuario Flow")</div>
+            <div class="perfil-role">@((Session["TipoUsuario"] as string) ?? "USER")</div>
+        </div>
+
+        <nav class="perfil-nav">
+            <a class="nav-item" href="#" data-url="@Url.Action("Pedidos","Usuario")">🕘 Mis Rentas</a>
+            <a class="nav-item active" href="#" data-url="@Url.Action("Compras","Usuario")">🛍️ Mis Compras</a>
+            <a class="nav-item" href="@Url.Action("PerfilCliente","Usuario")">⚙️ Mis Datos</a>
+        </nav>
+    </aside>
+
+    <main class="perfil-main">
+        <div class="profile-card">
+            <h2 class="compras-title">HISTORIAL DE COMPRAS</h2>
+            <div class="compras-box" id="perfilContent">
+                <!-- initial content loaded via AJAX -->
+            </div>
+        </div>
+    </main>
+</div>
+
+@section scripts {
+    <script>
+        (function(){
+            var container = document.getElementById('perfilContent');
+            var navItems = document.querySelectorAll('.perfil-nav .nav-item');
+
+            function setActive(el){
+                navItems.forEach(function(i){ i.classList.remove('active'); });
+                if(el) el.classList.add('active');
+            }
+
+            function loadUrl(url, clicked){
+                if(!url) return;
+                fetch(url, { credentials: 'same-origin', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+                    .then(function(html){ container.innerHTML = html; if(clicked) setActive(clicked); })
+                    .catch(function(e){ container.innerHTML = '<div class="compras-empty">Error al cargar contenido.</div>'; console.error(e); });
+            }
+
+            navItems.forEach(function(a){
+                a.addEventListener('click', function(e){
+                    var url = this.getAttribute('data-url');
+                    // Only intercept clicks on items with data-url (AJAX-loaded content).
+                    // Items without data-url (like "Mis Datos") should navigate normally via href.
+                    if (!url) return;
+                    e.preventDefault();
+                    loadUrl(url, this);
+                });
+            });
+
+            // load initial content (Compras)
+            var defaultUrl = '@Url.Action("Compras","Usuario")';
+            loadUrl(defaultUrl, document.querySelector('.perfil-nav .nav-item.active'));
+        })();
+    </script>
+}
+

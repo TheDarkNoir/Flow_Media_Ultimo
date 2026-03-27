@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Catálogo";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/Catalogo.css")" rel="stylesheet" />
+
+<div class="catalog-page">
+    <div class="catalog-container">
+        @Html.Action("Index", "Catalog")
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // ensure catalogIndexUrl is set for catalog.js fallback
+        window.catalogIndexUrl = window.catalogIndexUrl || '@Url.Action("Index","Catalog")';
+    </script>
+}
+

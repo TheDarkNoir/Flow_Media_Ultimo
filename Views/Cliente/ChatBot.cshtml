@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "ChatBot";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<div class="chat-wrapper">
+
+    <div class="chat-card">
+
+        <!-- HEADER -->
+        <div class="chat-header">
+            🤖 Soporte Inteligente FlowMedia
+        </div>
+
+        <!-- MENSAJES -->
+        <div id="chatBox" class="chat-body"></div>
+
+        <!-- INPUT -->
+        <div class="chat-footer">
+            <input type="text" id="msg" placeholder="Escribe tu mensaje..." />
+            <button onclick="send()">➤</button>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        function appendMessage(text, type) {
+            var box = document.getElementById("chatBox");
+
+            var msg = document.createElement("div");
+            msg.className = "msg " + type;
+
+            var name = type === "user" ? "Tú" : "LawMoon";
+
+            msg.innerHTML =
+                `<div class="bubble">
+                <div class="name">${name}</div>
+                <div>${text}</div>
+            </div>`;
+
+            box.appendChild(msg);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function send() {
+            var input = document.getElementById("msg");
+            var text = input.value.trim();
+
+            if (!text) return;
+
+            appendMessage(text, "user");
+            input.value = "";
+
+            fetch('/Account/SendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: "text=" + encodeURIComponent(text)
+            })
+                .then(r => r.json())
+                .then(d => {
+                    appendMessage(d.reply, "bot");
+                })
+                .catch(() => {
+                    appendMessage("Error al conectar", "bot");
+                });
+        }
+
+        // ENTER
+        document.getElementById("msg").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") send();
+        });
+    </script>
+}

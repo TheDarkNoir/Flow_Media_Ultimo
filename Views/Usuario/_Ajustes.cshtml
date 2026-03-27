@@ -1,0 +1,42 @@
+@{
+    Layout = null;
+}
+<form id="form-ajustes">
+    <h2>Ajustes</h2>
+    <div>
+        <label>Nombre</label>
+        <input type="text" id="ajuste-nombre" name="nombre" />
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" id="ajuste-email" name="email" />
+    </div>
+    <div>
+        <button type="button" id="btn-guardar-ajustes">Guardar</button>
+    </div>
+</form>
+<script>
+    (function(){
+        var btn = document.getElementById('btn-guardar-ajustes');
+        btn.addEventListener('click', function(){
+            var nombre = document.getElementById('ajuste-nombre').value;
+            var email = document.getElementById('ajuste-email').value;
+
+            var token = document.querySelector('input[name="__RequestVerificationToken"]');
+            var tokenVal = token ? token.value : '';
+
+            fetch('@Url.Action("GuardarAjustes","Usuario")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': tokenVal
+                },
+                body: 'nombre=' + encodeURIComponent(nombre) + '&email=' + encodeURIComponent(email)
+            }).then(function(res){ return res.json(); }).then(function(json){
+                alert(json.message);
+            }).catch(function(){
+                alert('Error de red');
+            });
+        });
+    })();
+</script>

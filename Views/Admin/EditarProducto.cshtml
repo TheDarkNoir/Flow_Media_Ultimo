@@ -1,0 +1,149 @@
+﻿﻿@model FlowMediaWebMVC.Producto_Multimedia
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "EDITAR PRODUCTO";
+}
+
+<div class="modal-card">
+    <div class="modal-header">
+        <h2>EDITAR PRODUCTO</h2>
+        <a href="@Url.Action("Productos", "Admin")" class="btn-cancel" style="color: #111; text-decoration: none;">✖ CERRAR</a>
+    </div>
+
+    @using (Html.BeginForm("EditarProducto", "Admin", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.codigo_producto)
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.nombre_producto, "Nombre del Producto *")
+                @Html.TextBoxFor(m => m.nombre_producto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.nombre_producto)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.tipo_producto, "Tipo *")
+                @Html.DropDownListFor(m => m.tipo_producto,
+                    new SelectList(new[] { "Videojuego", "Pelicula" }, Model.tipo_producto),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.tipo_producto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.descripcion_producto, "Descripción")
+            @Html.TextAreaFor(m => m.descripcion_producto, new { @class = "form-control", rows = 3 })
+            @Html.ValidationMessageFor(m => m.descripcion_producto)
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.precio_producto_renta, "Precio de Renta *")
+                <div style="position: relative;">
+                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-weight: bold;">$</span>
+                    @Html.TextBoxFor(m => m.precio_producto_renta, new { @class = "form-control", type = "number", step = "100", style = "padding-left: 28px;" })
+                </div>
+                @Html.ValidationMessageFor(m => m.precio_producto_renta)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.precio_producto, "Precio de Venta *")
+                <div style="position: relative;">
+                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-weight: bold;">$</span>
+                    @Html.TextBoxFor(m => m.precio_producto, new { @class = "form-control", type = "number", step = "100", style = "padding-left: 28px;" })
+                </div>
+                @Html.ValidationMessageFor(m => m.precio_producto)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.cantidad_disponible_producto, "Cantidad Disponible *")
+                @Html.TextBoxFor(m => m.cantidad_disponible_producto, new { @class = "form-control", type = "number", min = "0" })
+                @Html.ValidationMessageFor(m => m.cantidad_disponible_producto)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.clasificacion_producto, "Clasificación")
+                @Html.TextBoxFor(m => m.clasificacion_producto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.clasificacion_producto)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.año_producto, "Año")
+                @Html.TextBoxFor(m => m.año_producto, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.año_producto)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.codigo_inventario, "Ubicación en Inventario *")
+                @Html.DropDownListFor(m => m.codigo_inventario,
+                    new SelectList(ViewBag.Inventarios, "Value", "Text"),
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.codigo_inventario)
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="@Url.Action("Productos", "Admin")" class="btn-cancel" style="text-decoration: none;">CANCELAR</a>
+        <button type="submit" class="btn-primary">ACTUALIZAR PRODUCTO</button>
+    </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+        $('form').submit(function (e) {
+            var precioRenta = parseFloat($('#precio_producto_renta').val());
+            var precioVenta = parseFloat($('#precio_producto').val());
+            var nombre = $('#nombre_producto').val().trim();
+            var tipo = $('#tipo_producto').val();
+            var codigoInventario = $('#codigo_inventario').val();
+
+            if (!nombre) {
+                alert('El nombre del producto es requerido');
+                e.preventDefault();
+                return false;
+            }
+
+            if (!tipo) {
+                alert('Debe seleccionar un tipo de producto');
+                e.preventDefault();
+                return false;
+            }
+
+            if (!codigoInventario) {
+                alert('Debe seleccionar una ubicación en inventario');
+                e.preventDefault();
+                return false;
+            }
+
+            if (isNaN(precioRenta) || precioRenta <= 0) {
+                alert('El precio de renta debe ser mayor a 0');
+                e.preventDefault();
+                return false;
+            }
+
+            if (isNaN(precioVenta) || precioVenta <= 0) {
+                alert('El precio de venta debe ser mayor a 0');
+                e.preventDefault();
+                return false;
+            }
+
+            if (precioRenta >= precioVenta) {
+                alert('El precio de renta debe ser menor al precio de venta');
+                e.preventDefault();
+                return false;
+            }
+
+            return true;
+        });
+    </script>
+}

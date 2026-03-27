@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Flow Media</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Cargar estilos del cliente para mantener el aspecto del footer consistente -->
+    <link rel="stylesheet" href="@Url.Content("~/EstilosOriginales/Cliente.css")" />
+
+    <style>
+        /* Asegurar que el logo del footer no quede sobredimensionado en el layout de login */
+        .client-footer .footer-logo,
+        .footer-logo {
+            height: 36px !important;
+            max-width: 180px !important;
+            width: auto !important;
+            display: block;
+        }
+
+        /* Centrar el contenido del footer en pantallas pequeñas */
+        .client-footer .footer-inner,
+        .footer-inner {
+            max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;
+        }
+    </style>
+</head>
+<body style="background:#07121a; color:#e6eef6; min-height:100vh; display:flex; flex-direction:column;">
+
+    <div style="flex:1;"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main style="flex:1; display:flex; align-items:center; justify-content:center;">
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="client-footer">
+        <div class="footer-inner">
+
+            <div class="footer-left">
+                <img src="@Url.Content("~/Imagenes/FlowMedia.png")" alt="Flow Media" class="footer-logo" />
+                <div class="footer-info">
+                    <div>Flow Media</div>
+                    <div class="copyright">© @DateTime.Now.Year Todos los derechos reservados</div>
+                </div>
+            </div>
+
+            <button class="contact-btn">Contáctanos</button>
+
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

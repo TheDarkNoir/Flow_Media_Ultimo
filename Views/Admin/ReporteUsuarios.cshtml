@@ -1,0 +1,38 @@
+@model List<FlowMediaWebMVC.Usuario>
+
+@{
+    ViewBag.Title = "Reporte Usuarios";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Reporte de Usuarios</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+<div>No hay datos para mostrar.</div>
+}
+else
+{
+<div class="admin-table-container">
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>CORREO</th>
+                <th>TELÉFONO</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var u in Model){
+            <tr>
+                <td>@u.numero_identificacion_usuario</td>
+                <td>@u.nombre_usuario</td>
+                <td>@u.email_usuario</td>
+                <td>@u.telefono_usuario</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}

@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/Login.css")" rel="stylesheet" />
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+<div class="login-page">
+    <div class="login-panel">
+
+        <h1 class="welcome">BIENVENIDO</h1>
+        <p class="subtitle">Ingresa para gestionar tus rentas y compras</p>
+
+        <div class="login-form">
+
+            <label class="field-label">EMAIL</label>
+            <div class="input-wrap">
+                <span class="icon icon-mail">✉</span>
+                <input type="email" name="email_usuario" class="input" placeholder="tu@email.com" required />
+            </div>
+
+            <label class="field-label">CONTRASEÑA</label>
+            <div class="input-wrap">
+                <span class="icon icon-lock">🔒</span>
+                <input type="password" name="contraseña_usuario" class="input" placeholder="Ingrese su contraseña" required />
+            </div>
+
+            <button type="submit" class="btn-primary">Ingresar →a</button>
+
+            <div class="register">
+                ¿No tienes cuenta?
+                <a href="@Url.Action("CrearCuenta", "Account")">Regístrate aquí</a>
+            </div>
+
+            <div>
+                @if (ViewBag.Error != null)
+                {
+                <p style="color:red">@ViewBag.Error</p>
+                }
+
+                @if (ViewBag.Mensaje != null)
+                {
+                <p style="color:green">@ViewBag.Mensaje</p>
+                }
+            </div>
+
+        </div>
+
+    </div>
+</div>
+}

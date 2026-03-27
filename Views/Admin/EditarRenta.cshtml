@@ -1,0 +1,79 @@
+﻿@model FlowMediaWebMVC.Renta
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "EDITAR RENTA";
+}
+
+<div class="modal-card">
+    <div class="modal-header">
+        <h2>✏️ EDITAR RENTA #@Model.id_renta</h2>
+        <a href="@Url.Action("Rentas", "Admin")" class="btn-cancel" style="color: #111; text-decoration: none;">✖ CERRAR</a>
+    </div>
+
+    @using (Html.BeginForm("EditarRenta", "Admin", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.id_renta)
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fecha_renta">Fecha de Renta *</label>
+                <input type="date" name="fecha_renta" id="fecha_renta" class="form-control" value="@Model.fecha_renta.ToString("yyyy-MM-dd")" required />
+                @Html.ValidationMessageFor(m => m.fecha_renta)
+            </div>
+
+            <div class="form-group">
+                <label for="fecha_devolucion_renta">Fecha de Devolución *</label>
+                <input type="date" name="fecha_devolucion_renta" id="fecha_devolucion_renta" class="form-control" value="@Model.fecha_devolucion_renta.ToString("yyyy-MM-dd")" required />
+                @Html.ValidationMessageFor(m => m.fecha_devolucion_renta)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="estado_renta">Estado *</label>
+                <select name="estado_renta" id="estado_renta" class="form-control" required>
+                    <option value="Activa" @(Model.estado_renta == "Activa" ? "selected" : "")>Activa</option>
+                    <option value="Devuelta" @(Model.estado_renta == "Devuelta" ? "selected" : "")>Devuelta</option>
+                    <option value="Vencida" @(Model.estado_renta == "Vencida" ? "selected" : "")>Vencida</option>
+                </select>
+                @Html.ValidationMessageFor(m => m.estado_renta)
+            </div>
+
+            <div class="form-group">
+                <label for="numero_identificacion_usuario">Usuario *</label>
+                <select name="numero_identificacion_usuario" id="numero_identificacion_usuario" class="form-control" required>
+                    @foreach (var usuario in ViewBag.Usuarios)
+                        {
+                    <option value="@usuario.Value" @(Model.numero_identificacion_usuario.ToString() == usuario.Value ? "selected" : "")>@usuario.Text</option>
+                        }
+                </select>
+                @Html.ValidationMessageFor(m => m.numero_identificacion_usuario)
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="@Url.Action("Rentas", "Admin")" class="btn-cancel" style="text-decoration: none;">CANCELAR</a>
+        <button type="submit" class="btn-primary">ACTUALIZAR RENTA</button>
+    </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+        // Validar que la fecha de devolución sea posterior
+        $('#fecha_devolucion_renta').change(function() {
+            var fechaRenta = new Date($('#fecha_renta').val());
+            var fechaDevolucion = new Date($(this).val());
+
+            if (fechaDevolucion <= fechaRenta) {
+                alert('La fecha de devolución debe ser posterior a la fecha de renta');
+                $(this).val($('#fecha_renta').val());
+            }
+        });
+    </script>
+}

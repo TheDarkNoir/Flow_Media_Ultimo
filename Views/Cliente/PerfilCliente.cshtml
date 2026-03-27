@@ -1,0 +1,64 @@
+﻿@model FlowMediaWebMVC.Usuario
+
+@{
+    ViewBag.Title = "Mi Perfil";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/perfil.css")" rel="stylesheet" />
+
+<div class="perfil-page">
+    <aside class="perfil-sidebar">
+        <div class="perfil-avatar">
+            <div class="avatar-circle">@((Model != null && !string.IsNullOrEmpty(Model.nombre_usuario)) ? Model.nombre_usuario.Substring(0,1).ToUpper() : "U")</div>
+            <div class="perfil-name">@((Model != null) ? Model.nombre_usuario : "Usuario Flow")</div>
+            <div class="perfil-role">@((Model != null && !string.IsNullOrEmpty(Model.tipo_usuario)) ? Model.tipo_usuario : "USER")</div>
+        </div>
+
+        <nav class="perfil-nav">
+            <a class="nav-item" href="@Url.Action("Pedidos","Usuario")">🕘 Mis Rentas</a>
+            <a class="nav-item" href="@Url.Action("Compras","Usuario")">🛍️ Mis Compras</a>
+            <a class="nav-item active" href="@Url.Action("PerfilCliente","Usuario")">⚙️ Mis Datos</a>
+        </nav>
+    </aside>
+
+    <main class="perfil-main">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar-large">@((Model != null && !string.IsNullOrEmpty(Model.nombre_usuario)) ? Model.nombre_usuario.Substring(0,1).ToUpper() : "U")</div>
+                <div class="profile-info-main">
+                    <h1 id="profileName">@((Model != null) ? Model.nombre_usuario : "Nombre Usuario")</h1>
+                    <p id="profileEmail">@((Model != null) ? Model.email_usuario : "email@dominio.com")</p>
+                    <a href="@Url.Action("EditarPerfil","Usuario")" class="btn-edit-profile">Editar Perfil</a>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">@((ViewBag.RentasCount != null) ? ViewBag.RentasCount : 0)</div>
+                    <p class="stat-label">@(((ViewBag.RentasCount != null) && (ViewBag.RentasCount == 1)) ? "Renta Activa" : "Rentas Activas")</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">@((ViewBag.ComprasCount != null) ? ViewBag.ComprasCount : 0)</div>
+                    <p class="stat-label">@(((ViewBag.ComprasCount != null) && (ViewBag.ComprasCount == 1)) ? "Compra" : "Compras")</p>
+                </div>
+            </div>
+
+            <section class="datos">
+                <h3>DATOS PERSONALES</h3>
+                <table class="datos-table">
+                    <tr><td>Usuario</td><td>@((Model != null) ? Model.nombre_usuario : "-")</td></tr>
+                    <tr><td>Contraseña</td><td>**************</td></tr>
+                </table>
+
+                <h3>DATOS DE CUENTA</h3>
+                <table class="datos-table">
+                    <tr><td>Nombre</td><td>@((Model != null) ? Model.nombre_usuario : "-")</td></tr>
+                    <tr><td>Teléfono</td><td>@((Model != null && Model.telefono_usuario != null) ? Model.telefono_usuario.ToString() : "-")</td></tr>
+                    <tr><td>E-mail</td><td>@((Model != null) ? Model.email_usuario : "-")</td></tr>
+                    <tr><td>Dirección</td><td>@((Model != null) ? Model.direccion_usuario : "-")</td></tr>
+                </table>
+            </section>
+        </div>
+    </main>
+</div>

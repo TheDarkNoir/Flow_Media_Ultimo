@@ -1,0 +1,153 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="General.master.cs" Inherits="FlowMediaWeb.General" %>
+<%@ Register Assembly="System.Web.Optimization" Namespace="System.Web.Optimization" TagPrefix="webopt" %>
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head runat="server">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title><%: Page.Title %> - Flow Media</title>
+
+<link runat="server" href="~/Estilos/MenuClient.css" rel="stylesheet" />
+<link runat="server" href="~/Estilos/Catalogo.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+<form runat="server">
+
+<asp:ScriptManager runat="server" EnablePageMethods="true" />
+
+<!-- ================================================= -->
+
+<!-- 🎬 CONTENEDOR PRINCIPAL -->
+
+<!-- ================================================= -->
+
+<div class="client-shell">
+
+
+<!-- ================================================= -->
+<!--  HEADER TIPO NETFLIX  -->
+<!-- ================================================= -->
+<header class="mc-header">
+
+    <div class="mc-header-inner">
+
+        <!-- ✅ LOGO FLOWMEDIA -->
+        <!-- Usa la imagen del proyecto -->
+        <div class="mc-logo">
+            <asp:Image 
+                ID="ImgLogo"
+                runat="server"
+                ImageUrl="~/Imagenes/FlowMedia.png"
+                CssClass="logo-img"/>
+        </div>
+
+        <!-- ✅ BOTON ATRAS  -->
+        <button type="button" class="mc-back">←</button>
+
+        <!-- ✅ BOTON MENU MOBILE -->
+        <button type="button" class="mc-menu">
+            ☰
+        </button>
+
+        <!-- ================================================= -->
+        <!-- 🔍 BUSCADOR  -->
+        <!-- ================================================= -->
+        <div class="mc-search">
+
+            <asp:TextBox 
+                ID="TxtSearch"
+                runat="server"
+                CssClass="mc-search-input"
+                placeholder="Buscar películas o series..." />
+
+            <asp:Button 
+                ID="BtnSearch"
+                runat="server"
+                CssClass="mc-search-btn"
+                Text="🔍" />
+
+        </div>
+
+        <!-- ✅ ICONOS / PERFIL -->
+        <div class="mc-icons">
+            <asp:LinkButton 
+                ID="LnkProfile"
+                runat="server"
+                CssClass="mc-user">
+                👤
+            </asp:LinkButton>
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================================================= -->
+<!-- 🎥 CONTENIDO DINÁMICO -->
+<!-- ================================================= -->
+<main class="client-main">
+
+    <asp:ContentPlaceHolder 
+        ID="MainContent"
+        runat="server">
+    </asp:ContentPlaceHolder>
+
+</main>
+
+
+<!-- ================================================= -->
+<!-- 🧾 FOOTER FLOWMEDIA -->
+<!-- ================================================= -->
+<footer class="client-footer">
+
+    <div class="footer-inner">
+
+        <!-- IZQUIERDA -->
+        <div class="footer-left">
+
+            <asp:Image 
+                runat="server"
+                ImageUrl="~/Imagenes/FlowMedia.png"
+                CssClass="footer-logo"/>
+
+            <p>
+                © <%: DateTime.Now.Year %> Flow Media <br />
+                contacto@flowmedia.com | Colombia
+            </p>
+
+        </div>
+
+        <!-- CENTRO -->
+        <div class="footer-center">
+
+            <asp:Button
+                ID="BtnContact"
+                runat="server"
+                CssClass="contact-btn"
+                Text="CONTÁCTANOS" />
+
+        </div>
+
+        <!-- DERECHA -->
+        <div class="footer-right">
+            👥
+        </div>
+
+    </div>
+
+</footer>
+```
+
+</div>
+
+</form>
+
+</body>
+</html>

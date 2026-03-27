@@ -1,0 +1,95 @@
+@{
+    Layout = null;
+}
+
+@using System
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Flow Media</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="@Url.Content("~/EstilosOriginales/MenuClient.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/EstilosOriginales/Catalogo.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/EstilosOriginales/LayoutMenu.css")" rel="stylesheet" />
+
+</head>
+<body>
+
+
+    <div class="client-shell">
+
+        <header class="mc-header">
+            <div class="mc-header-inner">
+
+                <div class="mc-logo">
+                    <img src="@Url.Content("~/Imagenes/FlowMedia.png")" alt="Flow Media" class="logo-img" />
+                </div>
+
+                <button type="button" class="mc-back">?</button>
+
+                <button type="button" class="mc-menu">?</button>
+
+                @{
+                    var controller = ViewContext.RouteData.Values["controller"] as string ?? string.Empty;
+                    var action = ViewContext.RouteData.Values["action"] as string ?? string.Empty;
+                    bool hideSearch = string.Equals(controller, "Account", StringComparison.OrdinalIgnoreCase)
+                                      && string.Equals(action, "Login", StringComparison.OrdinalIgnoreCase);
+                }
+
+                @if (!hideSearch)
+                {
+                <div class="mc-search">
+                    <form method="get" action="@Url.Action("Index", "Home")" class="mc-search-form">
+                        <input type="text" name="q" class="mc-search-input" placeholder="Buscar pel�culas o series..." />
+                        <button type="submit" class="mc-search-btn">??</button>
+                    </form>
+                </div>
+                }
+
+                <div class="mc-icons">
+                    <a href="@Url.Action("Login", "Account")" class="mc-user" title="Perfil">??</a>
+                </div>
+
+            </div>
+        </header>
+
+        <main class="client-main">
+            <div class="container body-content">
+                @RenderBody()
+            </div>
+        </main>
+
+        <footer class="client-footer">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <img src="@Url.Content("~/Imagenes/FlowMedia.png")" alt="Flow Media" class="footer-logo" />
+                    <p>
+                        � @DateTime.Now.Year Flow Media <br />
+                        contacto@flowmedia.com | Colombia
+                    </p>
+                </div>
+
+                <div class="footer-center">
+                    <a href="@Url.Action("Contact", "Home")" class="contact-btn">CONT�CTANOS</a>
+                </div>
+
+                <div class="footer-right">
+                    ??
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

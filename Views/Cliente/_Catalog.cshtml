@@ -1,0 +1,279 @@
+@model IEnumerable<FlowMediaWebMVC.Models.CatalogItem>
+
+@{
+    var activeFilter =
+        (ViewBag.Filter as string ?? "")
+        .ToLower();
+}
+
+<section id="catalogSection">
+
+    <div class="catalog-header">
+
+        <h1 class="catalog-title">
+            EXPLORAR CATÁLOGO
+        </h1>
+
+        <div class="catalog-controls">
+
+            <div class="catalog-filters">
+
+                <button type="button"
+                        class="filter-btn @(activeFilter == "todo" ? "active" : "")"
+                        data-filter="Todo">
+                    Todo
+                </button>
+
+                <button type="button"
+                        class="filter-btn @(activeFilter == "videojuegos" ? "active" : "")"
+                        data-filter="Videojuegos">
+                    Videojuegos
+                </button>
+
+                <button type="button"
+                        class="filter-btn @(activeFilter == "peliculas" ? "active" : "")"
+                        data-filter="Peliculas">
+                    Películas
+                </button>
+
+                <button type="button"
+                        class="filter-btn @(activeFilter == "ps4" ? "active" : "")"
+                        data-filter="PS4">
+                    PS4
+                </button>
+
+                <button type="button"
+                        class="filter-btn @(activeFilter == "estrenos" ? "active" : "")"
+                        data-filter="Estrenos">
+                    Estrenos
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="catalog-grid"
+         id="catalogGrid">
+
+        @if (Model != null && Model.Any())
+        {
+        <p>
+            Total items:
+            @Model.Count()
+        </p>
+
+            foreach (var item in Model)
+            {
+        <!-- CAMBIO IMPORTANTE:
+             usamos Detalles en lugar de Details -->
+
+        <a class="catalog-card"
+           href="@Url.Action(
+                        "Detalles",
+                        "Catalog",
+                        new { id = item.Id }
+                   )"
+           data-id="@item.Id">
+
+            <div class="thumb">
+
+                <img src="@item.ImageUrl"
+                     alt="@item.Title"
+                     class="catalog-image"
+                     onerror="this.onerror=null;
+                             this.src='@Url.Content("~/Imagenes/Nada.png")'" />
+
+                <div class="badge">
+                    @item.FilterKey
+                </div>
+
+            </div>
+
+            <div class="meta">
+
+                <div class="category">
+                    @item.Category
+                </div>
+
+                <h3>
+                    @item.Title
+                </h3>
+
+                <p>
+                    @item.Description
+                </p>
+
+                <div class="price">
+
+                    <span>
+                        Renta desde
+                    </span>
+
+                    <span>
+                        @String.Format(
+                            System.Globalization
+                            .CultureInfo
+                            .GetCultureInfo("es-CO"),
+
+                            "{0:C0}",
+
+                            item.Price
+                        )
+                    </span>
+
+                </div>
+
+            </div>
+
+        </a>
+            }
+        }
+        else
+        {
+        <p>
+            No hay productos en el catálogo.
+        </p>
+        }
+
+    </div>
+
+</section>
+
+@section scripts {
+
+    <script>
+
+(function(){
+
+    document.addEventListener(
+        'click',
+
+        function(e)
+        {
+            var btn =
+                e.target.closest(
+                    '.filter-btn'
+                );
+
+            if(!btn)
+                return;
+
+            var all =
+                document.querySelectorAll(
+                    '.catalog-filters .filter-btn'
+                );
+
+            all.forEach(
+                function(b)
+                {
+                    b.classList.remove(
+                        'active'
+                    );
+                }
+            );
+
+            btn.classList.add(
+                'active'
+            );
+
+            var filtro =
+                btn.dataset.filter;
+
+            var url =
+                (window.catalogIndexUrl
+                || '@Url.Action("Index","Catalog")')
+
+                + '?filter='
+
+                + encodeURIComponent(
+                    filtro
+                );
+
+            var target =
+                document.getElementById(
+                    'catalogGrid'
+                )
+
+                ||
+
+                document.getElementById(
+                    'mainContent'
+                );
+
+            if(!target)
+                return;
+
+            target.innerHTML =
+                '<div class="compras-empty">Cargando catálogo...</div>';
+
+            fetch(
+                url,
+                {
+                    credentials:
+                    'same-origin'
+                }
+            )
+
+            .then(function(r)
+            {
+                if(!r.ok)
+                    throw new Error(
+                        r.statusText
+                    );
+
+                return r.text();
+            })
+
+            .then(function(html)
+            {
+                try
+                {
+                    var parser =
+                        new DOMParser();
+
+                    var doc =
+                        parser.parseFromString(
+                            html,
+                            'text/html'
+                        );
+
+                    var grid =
+                        doc.getElementById(
+                            'catalogGrid'
+                        );
+
+                    if(grid)
+                    {
+                        target.innerHTML =
+                            grid.innerHTML;
+
+                        return;
+                    }
+                }
+                catch(e)
+                {
+                }
+
+                target.innerHTML =
+                    html;
+            })
+
+            .catch(function(err)
+            {
+                target.innerHTML =
+                    '<div class="compras-empty">Error al cargar catálogo.</div>';
+
+                console.error(err);
+            });
+
+        }
+
+    );
+
+})();
+
+    </script>
+
+}

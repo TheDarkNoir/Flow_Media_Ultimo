@@ -1,0 +1,38 @@
+@model List<FlowMediaWebMVC.Inventario>
+
+@{
+    ViewBag.Title = "Reporte Inventario";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Reporte de Inventario</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+    <div>No hay datos para mostrar.</div>
+}
+else
+{
+    <div class="admin-table-container">
+        <table class="table-admin">
+            <thead>
+                <tr>
+                    <th>CÓDIGO</th>
+                    <th>CANTIDAD</th>
+                    <th>FECHA INGRESO</th>
+                    <th>UBICACIÓN</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var i in Model){
+                <tr>
+                    <td>@i.codigo_inventario</td>
+                    <td>@i.cantidad_inventario</td>
+                    <td>@i.fecha_ingreso_inventario</td>
+                    <td>@i.ubicacion_producto_inventario</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

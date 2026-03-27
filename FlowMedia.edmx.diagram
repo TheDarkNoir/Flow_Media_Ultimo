@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="24b2446167e94a9898a7f5e3302377bc" Name="Diagram1">
+        <EntityTypeShape EntityType="FlowMediaModel.Carrito_Compra" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Carrito_Detalle" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Compra" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Devolucion" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Inventario" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Multa" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Producto_Multimedia" Width="2" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Renta" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowMediaModel.Usuario" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="FlowMediaModel.FK__Carrito_C__numer__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Carrito_D__codig__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Carrito_D__codig__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Compra__numero_i__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Producto___id_co__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Devolucio__id_re__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Multa__codigo_de__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Producto___codig__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowMediaModel.FK__Renta__numero_id__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

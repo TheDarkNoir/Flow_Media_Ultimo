@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Menu Cliente";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/MenuClient.css")" rel="stylesheet" />
+
+<main id="mainContent" class="mc-page-content">
+
+    <!-- HERO con imagen de fondo rotativa -->
+    <section class="mc-hero" id="heroSection">
+        <!-- Wallpaper layers for crossfade -->
+        <div class="mc-hero-bg mc-hero-bg-active" id="heroBg1"></div>
+        <div class="mc-hero-bg" id="heroBg2"></div>
+        <div class="mc-hero-overlay"></div>
+        <div class="mc-hero-inner">
+            <div class="mc-hero-badge">🔥 NUEVO LANZAMIENTO: GTA VI DISPONIBLE PARA RESERVA</div>
+            <h1>TU<br/>ENTRETENIMIENTO,<br/><span>SIEMPRE<br/>DISPONIBLE.</span></h1>
+            <p class="mc-hero-sub">La plataforma líder en Colombia para la renta y compra de los mejores videojuegos y películas. Calidad premium, precios justos y entrega digital inmediata.</p>
+            <div class="mc-hero-buttons">
+                <a href="@Url.Action("Catalogo","Catalog")" class="btn-hero-primary">Explorar Catálogo →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características con iconos de imágenes -->
+    <section class="mc-features">
+        <div class="mc-features-inner">
+            <article class="feature">
+                <div class="feature-icon-wrap">
+                    <img src="@Url.Content("~/Iconos/IconReloj.png")" alt="Rentas" class="feature-icon-img" />
+                </div>
+                <h3>Rentas Flexibles</h3>
+                <p>Disfruta de tus títulos favoritos por 7 días a precios increíbles. Renueva fácilmente desde tu perfil.</p>
+            </article>
+            <article class="feature">
+                <div class="feature-icon-wrap">
+                    <img src="@Url.Content("~/Iconos/IconSeguridad.png")" alt="Compra Segura" class="feature-icon-img" />
+                </div>
+                <h3>Compra Segura</h3>
+                <p>Adquiere tus juegos y películas de forma definitiva con total garantía y soporte técnico especializado.</p>
+            </article>
+            <article class="feature">
+                <div class="feature-icon-wrap">
+                    <img src="@Url.Content("~/Iconos/IconVideojuego.png")" alt="Catálogo" class="feature-icon-img" />
+                </div>
+                <h3>Catálogo Premium</h3>
+                <p>Desde clásicos de PS2 hasta los últimos estrenos de PS4 y ediciones especiales de colección.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Categorías con imágenes de fondo -->
+    <section class="mc-categories">
+        <div class="mc-categories-header">
+            <h2>Categorías Destacadas</h2>
+            <a class="mc-viewall" href="@Url.Action("Catalogo","Catalog")">Ver todo</a>
+        </div>
+        <div class="mc-cards">
+            <a class="mc-card videogames" href="@Url.Action("Catalogo","Catalog", new { filter = "Videojuegos" })">
+                <div class="mc-card-img">&nbsp;</div>
+                <div class="mc-card-title">Videojuegos</div>
+            </a>
+            <a class="mc-card peliculas" href="@Url.Action("Catalogo","Catalog", new { filter = "Peliculas" })">
+                <div class="mc-card-img">&nbsp;</div>
+                <div class="mc-card-title">Películas</div>
+            </a>
+            <a class="mc-card ps4" href="@Url.Action("Catalogo","Catalog", new { filter = "PS4" })">
+                <div class="mc-card-img">&nbsp;</div>
+                <div class="mc-card-title">PS4 Premium</div>
+            </a>
+            <a class="mc-card estrenos" href="@Url.Action("Catalogo","Catalog", new { filter = "Estrenos" })">
+                <div class="mc-card-img">&nbsp;</div>
+                <div class="mc-card-title">Estrenos</div>
+            </a>
+        </div>
+    </section>
+</main>
+
+@section scripts {
+    <script>
+        (function () {
+            // Rotación de wallpapers
+            var wallpapers = [
+                '@Url.Content("~/ImagenesWallpaper/Wallpaper1.png")',
+                '@Url.Content("~/ImagenesWallpaper/Wallpaper2.png")',
+                '@Url.Content("~/ImagenesWallpaper/Wallpaper3.png")',
+                '@Url.Content("~/ImagenesWallpaper/Wallpaper4.png")'
+            ];
+
+            var bg1 = document.getElementById('heroBg1');
+            var bg2 = document.getElementById('heroBg2');
+            var currentIndex = 0;
+            var showingBg1 = true;
+
+            // Establecer el primer wallpaper inmediatamente
+            bg1.style.backgroundImage = 'url(' + wallpapers[0] + ')';
+
+            // Precargar todas las imágenes
+            wallpapers.forEach(function (src) {
+                var img = new Image();
+                img.src = src;
+            });
+
+            function nextWallpaper() {
+                currentIndex = (currentIndex + 1) % wallpapers.length;
+                var nextUrl = 'url(' + wallpapers[currentIndex] + ')';
+
+                if (showingBg1) {
+                    bg2.style.backgroundImage = nextUrl;
+                    bg1.classList.remove('mc-hero-bg-active');
+                    bg2.classList.add('mc-hero-bg-active');
+                } else {
+                    bg1.style.backgroundImage = nextUrl;
+                    bg2.classList.remove('mc-hero-bg-active');
+                    bg1.classList.add('mc-hero-bg-active');
+                }
+                showingBg1 = !showingBg1;
+            }
+
+            setInterval(nextWallpaper, 5000);
+        })();
+    </script>
+}

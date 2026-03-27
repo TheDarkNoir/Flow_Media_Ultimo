@@ -1,0 +1,80 @@
+﻿@model FlowMediaWebMVC.Usuario
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "CREAR USUARIO";
+}
+
+<div class="modal-card">
+    <div class="modal-header">
+        <h2>👤 NUEVO USUARIO</h2>
+        <a href="@Url.Action("PanelAdmin", "Admin")" class="btn-cancel" style="color: #111; text-decoration: none;">✖ CERRAR</a>
+    </div>
+
+    @using (Html.BeginForm("CrearUsuario", "Admin", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="nombre_usuario">NOMBRE COMPLETO *</label>
+                <input type="text" name="nombre_usuario" id="nombre_usuario" class="form-control" placeholder="Ej: Juan Pérez" required />
+                @Html.ValidationMessageFor(m => m.nombre_usuario)
+            </div>
+
+            <div class="form-group">
+                <label for="email_usuario">EMAIL *</label>
+                <input type="email" name="email_usuario" id="email_usuario" class="form-control" placeholder="ejemplo@correo.com" required />
+                @Html.ValidationMessageFor(m => m.email_usuario)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group" style="width: 140px;">
+                <label for="tipo_identificacion_usuario">DOCUMENTO *</label>
+                <select name="tipo_identificacion_usuario" id="tipo_identificacion_usuario" class="form-control" required>
+                    <option value="">-- Seleccione --</option>
+                    <option value="CC">CC</option>
+                    <option value="TI">TI</option>
+                    <option value="CE">CE</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                </select>
+                @Html.ValidationMessageFor(m => m.tipo_identificacion_usuario)
+            </div>
+
+            <div class="form-group">
+                <label for="numero_identificacion_usuario">NÚMERO DOCUMENTO *</label>
+                <input type="text" name="numero_identificacion_usuario" id="numero_identificacion_usuario" class="form-control" placeholder="Ej: 1234567890" required />
+                @Html.ValidationMessageFor(m => m.numero_identificacion_usuario)
+            </div>
+
+            <div class="form-group">
+                <label for="telefono_usuario">TELÉFONO *</label>
+                <input type="text" name="telefono_usuario" id="telefono_usuario" class="form-control" placeholder="Ej: 3123456789" required />
+                @Html.ValidationMessageFor(m => m.telefono_usuario)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="direccion_usuario">DIRECCIÓN *</label>
+                <input type="text" name="direccion_usuario" id="direccion_usuario" class="form-control" placeholder="Ej: Calle 123 #45-67" required />
+                @Html.ValidationMessageFor(m => m.direccion_usuario)
+            </div>
+
+            <div class="form-group">
+                <label for="contraseña_usuario">CONTRASEÑA *</label>
+                <input type="password" name="contraseña_usuario" id="contraseña_usuario" class="form-control" placeholder="Mínimo 6 caracteres" required />
+                @Html.ValidationMessageFor(m => m.contraseña_usuario)
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="@Url.Action("PanelAdmin", "Admin")" class="btn-cancel" style="text-decoration: none;">CANCELAR</a>
+        <button type="submit" class="btn-primary">CREAR USUARIO</button>
+    </div>
+    }
+</div>

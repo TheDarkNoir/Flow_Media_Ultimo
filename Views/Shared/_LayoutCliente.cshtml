@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title - Cliente</title>
+
+    <!-- Estilos del cliente -->
+    <link rel="stylesheet" href="@Url.Content("~/EstilosOriginales/Cliente.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/EstilosOriginales/ChatBot.css")" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <div class="client-shell">
+
+        <!-- HEADER (nuevo diseño) -->
+        <header class="client-header">
+            <div class="header-inner">
+
+                <div class="left-controls">
+                    <button class="btn-back" onclick="history.back(); return false;" title="Atrás">
+                        <img src="@Url.Content("~/Iconos/IconVolver.png")" alt="Atrás" class="header-icon" />
+                    </button>
+                    <a class="brand" href="@Url.Action("UsuarioMenu","Usuario")">
+                        <img src="@Url.Content("~/Imagenes/FlowMedia.png")" alt="Flow Media" class="logo-img" />
+                    </a>
+                </div>
+
+                <div class="search-wrap">
+                    <form id="globalSearchForm" method="get" action="@Url.Action("Catalogo","Catalog")" class="search-form">
+                        <input id="globalSearchInput" type="text" name="q" class="search-input" placeholder="Buscar película, videojuego, y más..." />
+                        <button id="globalSearchBtn" type="submit" class="search-btn">
+                            <img src="@Url.Content("~/Iconos/IconBusqueda.png")" alt="Buscar" class="header-icon" />
+                        </button>
+                    </form>
+                </div>
+
+                @{ 
+                    var controller = ViewContext.RouteData.Values["controller"] as string ?? string.Empty;
+                    var action = ViewContext.RouteData.Values["action"] as string ?? string.Empty;
+                    bool isLogin = string.Equals(controller, "Account", StringComparison.OrdinalIgnoreCase)
+                                   && string.Equals(action, "Login", StringComparison.OrdinalIgnoreCase);
+                }
+
+                <div class="right-icons">
+                    <a href="@Url.Action("Carrito","Usuario")" class="icon-btn" title="Carrito">
+                        <img src="@Url.Content("~/Iconos/IconCarrito.png")" alt="Carrito" class="header-icon" />
+                    </a>
+                    <a href="@Url.Action("PerfilCliente","Usuario")" class="icon-btn" title="Perfil">
+                        <img src="@Url.Content("~/Iconos/IconPerfil.png")" alt="Perfil" class="header-icon" />
+                    </a>
+                    @if (!isLogin)
+                    {
+                        <a href="@Url.Action("Logout","Account")" class="icon-btn" title="Cerrar sesión">
+                            <img src="@Url.Content("~/Iconos/IconLogout.png")" alt="Cerrar sesión" class="header-icon" />
+                        </a>
+                    }
+
+                    <!-- Chat button in header -->
+                    <a href="@Url.Action("ChatBot","Usuario")" class="icon-btn chat-top" title="Chat soporte">
+                        <img src="@Url.Content("~/Iconos/IconChatBot.png")" alt="Chat" class="header-icon" />
+                    </a>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- CONTENIDO -->
+        <main id="mainContent" class="client-main">
+            <div class="container body-content">
+                @RenderBody()
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="client-footer">
+            <div class="footer-inner">
+
+                <div class="footer-left">
+                    <img src="@Url.Content("~/Imagenes/FlowMedia.png")" alt="Flow Media" class="footer-logo" />
+                    <div class="footer-info">
+                        <div>Flow Media</div>
+                        <div class="copyright">© @DateTime.Now.Year Todos los derechos reservados</div>
+                    </div>
+                </div>
+
+                <button class="contact-btn">Contáctanos</button>
+
+            </div>
+        </footer>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>window.catalogIndexUrl = '@Url.Action("Index","Catalog")';</script>
+    <script src="@Url.Content("~/Scripts/catalog.js")"></script>
+
+    <script>
+        (function(){
+            var form = document.getElementById('globalSearchForm');
+            var input = document.getElementById('globalSearchInput');
+            if(form && input){
+                form.addEventListener('submit', function(e){
+                    var q = (input.value || '').trim();
+                    if(!q){
+                        e.preventDefault();
+                        input.focus();
+                        alert('Por favor ingresa un término de búsqueda.');
+                        return false;
+                    }
+                    // ensure the Catalogo action receives the q parameter; it will set filter=Todo server-side
+                });
+            }
+        })();
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿@model FlowMediaWebMVC.Multa
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "CREAR MULTA";
+}
+
+<div class="modal-card">
+    <div class="modal-header">
+        <h2>⚠️ NUEVA MULTA</h2>
+        <a href="@Url.Action("Multas", "Admin")" class="btn-cancel" style="color: #111; text-decoration: none;">✖ CERRAR</a>
+    </div>
+
+    @using (Html.BeginForm("CrearMulta", "Admin", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fecha_multa">Fecha de Multa *</label>
+                <input type="date" name="fecha_multa" id="fecha_multa" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                @Html.ValidationMessageFor(m => m.fecha_multa)
+            </div>
+
+            <div class="form-group">
+                <label for="monto_multa">Monto *</label>
+                <div style="position: relative;">
+                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-weight: bold;">$</span>
+                    <input type="number" name="monto_multa" id="monto_multa" class="form-control" step="100" min="0" style="padding-left: 28px;" required />
+                </div>
+                @Html.ValidationMessageFor(m => m.monto_multa)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="estado_multa">Estado *</label>
+                <select name="estado_multa" id="estado_multa" class="form-control" required>
+                    <option value="">-- Seleccione un estado --</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Pagada">Pagada</option>
+                    <option value="Cancelada">Cancelada</option>
+                </select>
+                @Html.ValidationMessageFor(m => m.estado_multa)
+            </div>
+
+            <div class="form-group">
+                <label for="codigo_devolucion">Devolución *</label>
+                <select name="codigo_devolucion" id="codigo_devolucion" class="form-control" required>
+                    @foreach (var devolucion in ViewBag.Devoluciones)
+                        {
+                    <option value="@devolucion.Value">@devolucion.Text</option>
+                        }
+                </select>
+                @Html.ValidationMessageFor(m => m.codigo_devolucion)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion_multa">Descripción *</label>
+            <textarea name="descripcion_multa" id="descripcion_multa" class="form-control" rows="3" placeholder="Motivo de la multa" required></textarea>
+            @Html.ValidationMessageFor(m => m.descripcion_multa)
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="@Url.Action("Multas", "Admin")" class="btn-cancel" style="text-decoration: none;">CANCELAR</a>
+        <button type="submit" class="btn-primary">GUARDAR MULTA</button>
+    </div>
+    }
+</div>

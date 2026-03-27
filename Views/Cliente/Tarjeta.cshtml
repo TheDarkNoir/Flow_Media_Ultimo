@@ -1,0 +1,80 @@
+﻿@using FlowMediaWebMVC.Helpers
+@model FlowMediaWebMVC.Producto_Multimedia
+
+@{
+    ViewBag.Title = Model != null ? Model.nombre_producto : "Tarjeta";
+    Layout = "~/Views/Shared/_LayoutCliente.cshtml";
+}
+
+<link href="@Url.Content("~/EstilosOriginales/EstiloTarjeta.css")" rel="stylesheet" />
+
+<div class="tarjeta-page">
+    <div class="tarjeta-container">
+
+        <div class="tarjeta-inner">
+            <div class="left-col">
+                <div class="image-wrap">
+                    <img src="@Url.NormalizeImagePath(Model?.imagen_producto ?? string.Empty)" alt="@Model?.nombre_producto" onerror="this.onerror=null;this.src='@Url.Content("~/Imagenes/Nada.png")'" />
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="labels">
+                    @if (!string.IsNullOrEmpty(Model?.clasificacion_producto))
+                    {
+                        <span class="age-badge">@Model.clasificacion_producto</span>
+                    }
+                    @if (!string.IsNullOrEmpty(Model?.tipo_producto))
+                    {
+                        <span class="type-badge">@Model.tipo_producto</span>
+                    }
+                </div>
+
+                <h1 class="title">@Html.Encode(Model?.nombre_producto ?? "Sin nombre")</h1>
+
+                <p class="descripcion">@Html.Encode(!string.IsNullOrEmpty(Model?.descripcion_producto) ? Model.descripcion_producto : "Sin descripción disponible.")</p>
+
+                <div class="rental-box">
+                    <h3>Renta flexible</h3>
+                    <div class="rental-options">
+                        <button class="rent-duration" data-days="3">3 DÍAS</button>
+                        <button class="rent-duration active" data-days="7">7 DÍAS</button>
+                        <button class="rent-duration" data-days="14">14 DÍAS</button>
+                        <button class="rent-duration" data-days="30">30 DÍAS</button>
+                    </div>
+
+                    <div class="rent-price">
+                        <div class="price-amount">$@string.Format(System.Globalization.CultureInfo.GetCultureInfo("es-CO"), "{0:N0}", (Model?.precio_producto_renta ?? 0))</div>
+                        <button class="btn-rentar">Rentar ahora</button>
+                    </div>
+                </div>
+
+                <!-- Not implementing purchase or ratings as requested -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        (function(){
+            // rental duration toggle (purely client-side)
+            document.querySelectorAll('.rent-duration').forEach(function(b){
+                b.addEventListener('click', function(){
+                    document.querySelectorAll('.rent-duration').forEach(function(x){ x.classList.remove('active'); });
+                    this.classList.add('active');
+                    // Optionally update price based on days - placeholder logic (no server calc)
+                });
+            });
+
+            var rentBtn = document.querySelector('.btn-rentar');
+            if(rentBtn){
+                rentBtn.addEventListener('click', function(){
+                    alert('Función de renta no implementada en esta demo.');
+                });
+            }
+        })();
+    </script>
+}
+

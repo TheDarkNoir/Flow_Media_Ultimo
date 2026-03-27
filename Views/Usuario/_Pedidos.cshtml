@@ -1,0 +1,17 @@
+@model IEnumerable<FlowMediaWebMVC.Models.Pedido>
+<div class="pedidos-panel">
+    <h2>Pedidos</h2>
+    @if (Model != null && Model.Any())
+    {
+        <ul>
+        @foreach(var p in Model)
+        {
+            <li>#@p.Id - @p.Item <small>(@p.Fecha)</small></li>
+        }
+        </ul>
+    }
+    else
+    {
+        <p>No hay pedidos para mostrar.</p>
+    }
+</div>

@@ -1,0 +1,79 @@
+﻿﻿@model List<FlowMediaWebMVC.Renta>
+
+@{
+    ViewBag.Title = "Rentas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card-panel">
+
+    <div class="controls">
+        <a href="@Url.Action("Rentas","Admin")" class="btn-outline">REFRESCAR</a>
+        <!-- Assuming CrearRenta exists -->
+        <a href="@Url.Action("CrearRenta","Admin")" class="btn-primary">REGISTRAR RENTA</a>
+    </div>
+
+    <table class="table-admin" style="margin-top:12px;">
+        <thead>
+            <tr>
+                <th>ID Renta</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Devolución</th>
+                <th>Estado</th>
+                <th>Documento Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var r in Model)
+                {
+            <tr>
+                <td>@r.id_renta</td>
+                <td>@r.fecha_renta</td>
+                <td>@r.fecha_devolucion_renta</td>
+                <td>@r.estado_renta</td>
+                <td>@r.numero_identificacion_usuario</td>
+                <td>
+                    <a href="@Url.Action("EditarRenta","Admin", new { id = r.id_renta })" class="btn-warning" style="padding:6px 10px;font-size:12px;margin-right:8px;">Editar</a>
+                    <button onclick="eliminarRenta(@r.id_renta)" class="btn-danger" style="padding:6px 10px;font-size:12px;">Eliminar</button>
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+            <tr>
+                <td colspan="6">No hay rentas registradas.</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section scripts {
+    <script>
+        function eliminarRenta(id) {
+            if (confirm('¿Estás seguro de eliminar esta renta? Esta acción no se puede deshacer.')) {
+                $.ajax({
+                    url: '@Url.Action("EliminarRenta", "Admin")',
+                    type: 'POST',
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error al comunicarse con el servidor');
+                    }
+                });
+            }
+        }
+    </script>
+}

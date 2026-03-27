@@ -1,0 +1,80 @@
+﻿@model FlowMediaWebMVC.Usuario
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "EDITAR USUARIO";
+}
+
+<div class="modal-card">
+    <div class="modal-header">
+        <h2>✏️ EDITAR USUARIO</h2>
+        <a href="@Url.Action("PanelAdmin", "Admin")" class="btn-cancel" style="color: #111; text-decoration: none;">✖ CERRAR</a>
+    </div>
+
+    @using (Html.BeginForm("EditarUsuario", "Admin", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.numero_identificacion_usuario)
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="nombre_usuario">NOMBRE COMPLETO *</label>
+                <input type="text" name="nombre_usuario" id="nombre_usuario" class="form-control" value="@Model.nombre_usuario" required />
+                @Html.ValidationMessageFor(m => m.nombre_usuario)
+            </div>
+
+            <div class="form-group">
+                <label for="email_usuario">EMAIL *</label>
+                <input type="email" name="email_usuario" id="email_usuario" class="form-control" value="@Model.email_usuario" required />
+                @Html.ValidationMessageFor(m => m.email_usuario)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group" style="width: 140px;">
+                <label for="tipo_identificacion_usuario">DOCUMENTO *</label>
+                <select name="tipo_identificacion_usuario" id="tipo_identificacion_usuario" class="form-control" required>
+                    <option value="CC" @(Model.tipo_identificacion_usuario == "CC" ? "selected" : "")>CC</option>
+                    <option value="TI" @(Model.tipo_identificacion_usuario == "TI" ? "selected" : "")>TI</option>
+                    <option value="CE" @(Model.tipo_identificacion_usuario == "CE" ? "selected" : "")>CE</option>
+                    <option value="Pasaporte" @(Model.tipo_identificacion_usuario == "Pasaporte" ? "selected" : "")>Pasaporte</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="numero_identificacion_usuario">NÚMERO DOCUMENTO</label>
+                <input type="text" class="form-control" value="@Model.numero_identificacion_usuario" readonly disabled />
+                <small class="text-muted">El número de documento no se puede modificar</small>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono_usuario">TELÉFONO *</label>
+                <input type="text" name="telefono_usuario" id="telefono_usuario" class="form-control" value="@Model.telefono_usuario" required />
+                @Html.ValidationMessageFor(m => m.telefono_usuario)
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="direccion_usuario">DIRECCIÓN *</label>
+                <input type="text" name="direccion_usuario" id="direccion_usuario" class="form-control" value="@Model.direccion_usuario" required />
+                @Html.ValidationMessageFor(m => m.direccion_usuario)
+            </div>
+
+            <div class="form-group">
+                <label for="contraseña_usuario">CONTRASEÑA *</label>
+                <input type="password" name="contraseña_usuario" id="contraseña_usuario" class="form-control" value="@Model.contraseña_usuario" required />
+                <small class="text-muted">Ingrese una nueva contraseña o mantenga la actual</small>
+                @Html.ValidationMessageFor(m => m.contraseña_usuario)
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="@Url.Action("PanelAdmin", "Admin")" class="btn-cancel" style="text-decoration: none;">CANCELAR</a>
+        <button type="submit" class="btn-primary">ACTUALIZAR USUARIO</button>
+    </div>
+    }
+</div>

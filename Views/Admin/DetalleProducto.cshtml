@@ -1,0 +1,71 @@
+﻿﻿@model FlowMediaWebMVC.Producto_Multimedia
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "DETALLE PRODUCTO";
+}
+
+<div class="card-panel">
+    <div class="controls">
+        <a href="@Url.Action("Productos", "Admin")" class="btn-outline" style="text-decoration: none;">← VOLVER AL LISTADO</a>
+        <a href="@Url.Action("EditarProducto", "Admin", new { id = Model.codigo_producto })" class="btn-primary" style="text-decoration: none;">
+            EDITAR PRODUCTO
+        </a>
+    </div>
+
+    <div style="display: flex; gap: 30px; margin-top: 20px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px;">
+            <h1 style="margin-top: 0; color: #111;">@Model.nombre_producto</h1>
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; width: 180px; border-bottom: 1px solid #eee;">Código:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee;">@Model.codigo_producto</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Tipo:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee;">
+                        <span class="badge-@(Model.tipo_producto == "Videojuego" ? "juego" : "Pelicula")">
+                            @Model.tipo_producto
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Descripción:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee;">@(Model.descripcion_producto ?? "Sin descripción")</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Precio Renta:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee; color: #28a745; font-weight: bold; font-size: 18px;">
+                        $@string.Format("{0:N0}", Model.precio_producto_renta)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Precio Venta:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee; font-weight: bold; font-size: 18px;">
+                        $@string.Format("{0:N0}", Model.precio_producto)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Cantidad Disponible:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee;">
+                        <span class="@(Model.cantidad_disponible_producto > 0 ? "text-success" : "text-danger")" style="font-weight: bold; font-size: 16px;">
+                            @Model.cantidad_disponible_producto unidades
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Clasificación:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee;">@(Model.clasificacion_producto ?? "N/A")</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold; border-bottom: 1px solid #eee;">Año:</td>
+                    <td style="padding: 12px 8px; border-bottom: 1px solid #eee;">@(Model.año_producto ?? "No especificado")</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 8px; font-weight: bold;">Ubicación Inventario:</td>
+                    <td style="padding: 12px 8px;">@ViewBag.UbicacionInventario</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

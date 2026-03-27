@@ -1,0 +1,80 @@
+﻿@model List<FlowMediaWebMVC.Multa>
+
+@{
+    ViewBag.Title = "Multas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card-panel">
+
+    <div class="controls">
+        <a href="@Url.Action("Multas","Admin")" class="btn-outline">REFRESCAR</a>
+        <a href="@Url.Action("CrearMulta","Admin")" class="btn-primary">REGISTRAR MULTA</a>
+    </div>
+
+    <table class="table-admin" style="margin-top:12px;">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Descripción</th>
+                <th>Código Devolución</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var m in Model)
+                {
+            <tr>
+                <td>@m.codigo_multa</td>
+                <td>@m.fecha_multa</td>
+                <td>@m.monto_multa</td>
+                <td>@m.estado_multa</td>
+                <td>@m.descripcion_multa</td>
+                <td>@m.codigo_devolucion</td>
+                <td>
+                    <a href="@Url.Action("EditarMulta","Admin", new { id = m.codigo_multa })" class="btn-warning" style="padding:6px 10px;font-size:12px;margin-right:8px;">Editar</a>
+                    <button onclick="eliminarMulta(@m.codigo_multa)" class="btn-danger" style="padding:6px 10px;font-size:12px;">Eliminar</button>
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+            <tr>
+                <td colspan="7">No hay multas registradas.</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@section scripts {
+    <script>
+        function eliminarMulta(id) {
+            if (confirm('¿Estás seguro de eliminar esta multa? Esta acción no se puede deshacer.')) {
+                $.ajax({
+                    url: '@Url.Action("EliminarMulta", "Admin")',
+                    type: 'POST',
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error al comunicarse con el servidor');
+                    }
+                });
+            }
+        }
+    </script>
+}

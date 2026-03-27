@@ -1,0 +1,43 @@
+@model List<FlowMediaWebMVC.Renta>
+
+@{
+    ViewBag.Title = "Reporte Rentas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Reporte de Rentas</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+<div>No hay datos para mostrar.</div>
+}
+else
+{
+<div class="admin-table-container">
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>FECHA PRÉSTAMO</th>
+                <th>FECHA DEVOLUCIÓN</th>
+                <th>DESCRIPCIÓN</th>
+                <th>ESTADO</th>
+                <th>CÓDIGO PRODUCTO</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var r in Model){
+            <tr>
+                <td>@r.codigo_renta</td>
+                <td>@r.fecha_prestamo_renta</td>
+                <td>@r.fecha_devolucion_renta</td>
+                <td>@r.descripcion_renta</td>
+                <td>@r.estado_renta</td>
+                <td>@r.codigo_producto</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+

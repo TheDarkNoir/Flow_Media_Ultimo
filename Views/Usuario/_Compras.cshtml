@@ -1,0 +1,27 @@
+@model IEnumerable<FlowMediaWebMVC.Models.Pedido>
+
+<div class="compras-panel">
+    <h2 class="compras-title">HISTORIAL DE COMPRAS</h2>
+
+    <div class="compras-box">
+        @if (Model != null && Model.Any())
+        {
+            <ul class="compras-list">
+            @foreach (var c in Model)
+            {
+                <li class="compra-item">
+                    <div class="compra-meta">
+                        <div class="compra-id">#@c.Id</div>
+                        <div class="compra-item-title">@c.Item</div>
+                    </div>
+                    <div class="compra-fecha">@c.Fecha</div>
+                </li>
+            }
+            </ul>
+        }
+        else
+        {
+            <div class="compras-empty">No has realizado compras definitivas.</div>
+        }
+    </div>
+</div>

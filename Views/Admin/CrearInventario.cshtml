@@ -1,0 +1,35 @@
+﻿@model FlowMediaWebMVC.Inventario
+
+@{
+    ViewBag.Title = "Crear Inventario";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card-panel">
+    <h2>CREAR INVENTARIO</h2>
+
+    <form method="post" action="@Url.Action("CrearInventario","Admin")">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label>Cantidad</label>
+            <input type="number" name="cantidad_inventario" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de ingreso</label>
+            <input type="date" name="fecha_ingreso_inventario" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Ubicación</label>
+            <input type="text" name="ubicacion_producto_inventario" class="form-control" required />
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn-admin">Guardar</button>
+        <a href="@Url.Action("Inventario","Admin")" class="btn-cancel">Cancelar</a>
+
+    </form>
+</div>
