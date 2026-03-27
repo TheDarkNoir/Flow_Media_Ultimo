@@ -1,0 +1,40 @@
+﻿file: EstilosOriginales\MisCompras_Rentas.css
+````````css
+body {
+}
+
+/* Styles for MisCompras / MisRentas pages - adapted from perfil.css */
+
+.perfil-page { display:flex; gap:24px; padding:28px 18px; }
+.perfil-sidebar { width:260px; background:linear-gradient(180deg,#071b26,#0a2230); border-radius:14px; padding:20px; box-shadow: 0 8px 24px rgba(2,10,16,0.6); }
+.perfil-avatar { text-align:center; margin-bottom:18px; }
+.perfil-avatar .avatar-circle { width:72px; height:72px; border-radius:50%; background:#0bb6ff; color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:22px; }
+.perfil-name { color:#dff6ff; font-weight:700; margin-top:10px; }
+.perfil-role { color:#7fb0bf; font-size:12px; }
+
+.perfil-nav { margin-top:12px; background:linear-gradient(180deg,#0b2630,#071a22); border-radius:12px; padding:8px; }
+.perfil-nav .nav-item { display:block; padding:12px 14px; color:#a9cbd6; border-radius:8px; margin-bottom:6px; text-decoration:none; }
+.perfil-nav .nav-item:hover { background:rgba(255,255,255,0.02); }
+.perfil-nav .nav-item.active { background:#0b86ff; color:#fff; box-shadow: inset 0 -6px 0 rgba(0,0,0,0.18); }
+
+.perfil-main { flex:1; }
+.profile-card { background:transparent; padding:0 6px; }
+
+/* Title box like screenshot */
+.compras-title { display:inline-block; background:#071826; color:#fff; padding:10px 18px; font-weight:900; border-radius:4px; box-shadow: 6px 6px 0 rgba(0,0,0,0.6); margin-bottom:14px; }
+
+/* Large rounded content box */
+.compras-box { margin-top:12px; background:linear-gradient(180deg,#09262f,#071826); padding:28px; border-radius:18px; border:4px solid rgba(0,0,0,0.45); box-shadow: 6px 10px 0 rgba(0,0,0,0.6); min-height:120px; display:flex; align-items:center; justify-content:center; color:#9fb0bd; }
+.compras-empty { color:#9fb0bd; }
+
+/* Make lists inside look consistent */
+.compras-list { list-style:none; padding:0; margin:0; }
+.compra-item { display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid rgba(255,255,255,0.03); }
+.compra-id { font-weight:700; color:#a6e0ff; }
+.compra-item-title { color:#e6eef6; }
+.compra-fecha { color:#9fb0bd; font-size:13px; }
+
+/* Buttons and responsive */
+.btn-edit-profile, .btn-primary { background:#0b86ff; color:#fff; padding:10px 14px; border-radius:8px; text-decoration:none; display:inline-block; }
+
+@media(max-width:900px){ .perfil-page{ flex-direction:column; } .perfil-sidebar{ width:100%; } .compras-box{ min-height:160px; } }

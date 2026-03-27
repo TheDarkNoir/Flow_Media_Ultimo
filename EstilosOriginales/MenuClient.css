@@ -1,0 +1,306 @@
+﻿/* MenuClient.css - specific styles for MenuCliente / UsuarioMenu */
+:root{
+  --bg:#071b2b;
+  --panel:#0b2a3e;
+  --accent:#0ea5ff;
+  --muted:#9fb2c6;
+}
+
+/* Page content wrapper - ensure full dark bg */
+.mc-page-content {
+    background: var(--bg);
+}
+
+/* ============================================
+   HERO - with rotating wallpaper background
+   ============================================ */
+.mc-hero {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wallpaper background layers for crossfade */
+.mc-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    z-index: 0;
+}
+
+.mc-hero-bg.mc-hero-bg-active {
+    opacity: 1;
+}
+
+.mc-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 18, 26, 0.6) 0%, rgba(7, 18, 26, 0.82) 100%);
+    z-index: 1;
+}
+
+.mc-hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 28px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.mc-hero-badge {
+    display: inline-block;
+    background: rgba(14, 165, 255, 0.15);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(14, 165, 255, 0.3);
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+}
+
+.mc-hero h1 {
+    font-size: 56px;
+    margin: 0 0 20px 0;
+    line-height: 1.05;
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.mc-hero h1 span {
+    color: var(--accent);
+}
+
+.mc-hero-sub {
+    color: var(--muted);
+    max-width: 680px;
+    margin: 0 auto 32px auto;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.mc-hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-hero-primary:hover {
+    background: #0990e0;
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: #fff;
+}
+
+/* ============================================
+   FEATURES - card style with border
+   ============================================ */
+.mc-features {
+    max-width: 1200px;
+    margin: 0 auto 32px auto;
+    padding: 0 12px;
+}
+
+.mc-features-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.feature {
+    background: rgba(11, 42, 62, 0.6);
+    padding: 28px 24px;
+    border-radius: 14px;
+    border: 1px solid rgba(14, 165, 255, 0.12);
+    transition: border-color 0.2s;
+}
+
+.feature:hover {
+    border-color: rgba(14, 165, 255, 0.35);
+}
+
+.feature-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(14, 165, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.feature-icon-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    display: block;
+}
+
+.feature h3 {
+    margin: 0 0 8px 0;
+    color: #fff;
+    font-weight: 700;
+}
+
+.feature p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ============================================
+   CATEGORIAS - cards with background images
+   ============================================ */
+.mc-categories {
+    max-width: 1200px;
+    margin: 0 auto 32px auto;
+    padding: 18px 12px;
+}
+
+.mc-categories-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.mc-categories-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #fff;
+    font-weight: 800;
+}
+
+.mc-viewall {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.mc-viewall:hover {
+    text-decoration: underline;
+}
+
+.mc-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.mc-card {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.05));
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    height: 180px;
+    transition: transform 0.2s;
+}
+
+.mc-card:hover {
+    transform: translateY(-3px);
+    text-decoration: none;
+    color: #fff;
+}
+
+.mc-card-img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+}
+
+.mc-card-title {
+    position: relative;
+    font-weight: 700;
+    font-size: 18px;
+    z-index: 2;
+    padding: 16px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Background images with dark overlay */
+.mc-card.videogames .mc-card-img {
+    background-image: linear-gradient(rgba(3, 13, 23, 0.45), rgba(3, 13, 23, 0.55)), url('../Imagenes/VideojuegosNo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.mc-card.peliculas .mc-card-img {
+    background-image: linear-gradient(rgba(3, 13, 23, 0.45), rgba(3, 13, 23, 0.55)), url('../Imagenes/peliculasNo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.mc-card.ps4 .mc-card-img {
+    background-image: linear-gradient(rgba(3, 13, 23, 0.45), rgba(3, 13, 23, 0.55)), url('../Imagenes/PleiteishonNo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.mc-card.estrenos .mc-card-img {
+    background-image: linear-gradient(rgba(3, 13, 23, 0.45), rgba(3, 13, 23, 0.55)), url('../Imagenes/EstrenosNo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Logo sizing */
+.logo-img, .footer-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1100px) {
+    .mc-cards { grid-template-columns: repeat(2, 1fr); }
+    .mc-features-inner { grid-template-columns: repeat(2, 1fr); }
+    .mc-hero h1 { font-size: 40px; }
+}
+
+@media (max-width: 700px) {
+    .mc-cards { grid-template-columns: 1fr; }
+    .mc-features-inner { grid-template-columns: 1fr; }
+    .mc-hero h1 { font-size: 28px; }
+    .mc-hero { min-height: 380px; }
+    .mc-hero-inner { padding: 40px 16px; }
+    .mc-hero-buttons { flex-direction: column; align-items: center; }
+}

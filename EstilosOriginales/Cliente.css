@@ -1,0 +1,169 @@
+﻿/* Cliente.css - layout for client master page */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #07121a;
+  color: #e6eef6;
+}
+.client-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #07121a;
+}
+.client-header {
+  background: #06202a;
+  padding: 10px 16px;
+  border-bottom: 4px solid #0b3a47;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+.left-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn-back {
+  background: #0b3a47;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand .logo-img { height: 34px; }
+
+.search-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.search-form {
+  width: 60%;
+  display: flex;
+}
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px 0 0 6px;
+  border: 1px solid #0b3a47;
+  background: #fff;
+  color: #111;
+}
+.search-btn {
+  background: #081a21;
+  color: #fff;
+  border: 1px solid #0b3a47;
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 36px;
+  background: #0b3a47;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+/* Header icon images - consistent sizing */
+.header-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Main content area - full width, no white background */
+.client-main {
+  flex: 1;
+  padding: 24px 0;
+  background: #07121a;
+}
+.container.body-content {
+  background: transparent;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.client-footer {
+  padding: 18px 0;
+  background: #07121a;
+  color: #9fb0bd;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+.footer-logo { height: 28px; }
+.contact-btn {
+  background: transparent;
+  color: #9fb0bd;
+  border: 1px solid rgba(159,176,189,0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* Carrito simple */
+.cart-list {
+  background: #08202a;
+  padding: 16px;
+  border-radius: 8px;
+}
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.cart-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.cart-item .meta {
+  flex: 1;
+}
+.cart-item .meta h4 {
+  margin: 0 0 6px 0;
+}
+.cart-total {
+  text-align: right;
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .search-input { width: 50%; }
+  .footer-inner { flex-direction: column; align-items: center; }
+}

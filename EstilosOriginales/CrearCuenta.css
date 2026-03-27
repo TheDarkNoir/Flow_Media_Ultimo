@@ -1,0 +1,187 @@
+﻿/* CrearCuenta.css */
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #07121a;
+    color: #e6eef6;
+}
+
+.registro-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.registro-card {
+    width: 100%;
+    max-width: 480px;
+    background: #0b1e2d;
+    border-radius: 20px;
+    padding: 40px 36px 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.registro-title {
+    margin: 0 0 6px 0;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.registro-subtitle {
+    margin: 0 0 28px 0;
+    color: #9fb0bd;
+    font-size: 14px;
+}
+
+.registro-form {
+    text-align: left;
+}
+
+.field-full {
+    margin-bottom: 16px;
+}
+
+.field-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.field-half {
+    flex: 1;
+}
+
+.field-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #9fb0bd;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    background: #132a3a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.input-icon {
+    padding: 0 10px;
+    font-size: 16px;
+    color: #607d8b;
+    flex-shrink: 0;
+}
+
+.input {
+    flex: 1;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 12px 14px;
+    color: #e6eef6;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: #607d8b;
+}
+
+.select-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-input option {
+    background: #132a3a;
+    color: #e6eef6;
+}
+
+.btn-registrar {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: linear-gradient(135deg, #1b8a4a, #0ea55a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-registrar:hover {
+    background: linear-gradient(135deg, #15793f, #0c944e);
+    transform: translateY(-1px);
+}
+
+.registro-login-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #9fb0bd;
+}
+
+.registro-login-link a {
+    color: #0ea5ff;
+    text-decoration: none;
+}
+
+.registro-login-link a:hover {
+    text-decoration: underline;
+}
+
+.registro-footer {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 11px;
+    font-weight: 700;
+    color: #607d8b;
+    letter-spacing: 0.5px;
+}
+
+.msg-error {
+    color: #ff5252;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+.msg-success {
+    color: #4caf50;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+@media (max-width: 520px) {
+    .registro-card {
+        padding: 32px 20px 24px;
+    }
+    .field-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .field-half {
+        margin-bottom: 16px;
+    }
+}

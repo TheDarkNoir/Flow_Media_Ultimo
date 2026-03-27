@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FlowMediaModelStoreContainer" CdmEntityContainer="FlowMediaEntities">
+    <EntitySetMapping Name="Carrito_Compra">
+      <EntityTypeMapping TypeName="FlowMediaModel.Carrito_Compra">
+        <MappingFragment StoreEntitySet="Carrito_Compra">
+          <ScalarProperty Name="codigo_carrito" ColumnName="codigo_carrito" />
+          <ScalarProperty Name="numero_identificacion_usuario" ColumnName="numero_identificacion_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carrito_Detalle">
+      <EntityTypeMapping TypeName="FlowMediaModel.Carrito_Detalle">
+        <MappingFragment StoreEntitySet="Carrito_Detalle">
+          <ScalarProperty Name="id_detalle" ColumnName="id_detalle" />
+          <ScalarProperty Name="codigo_carrito" ColumnName="codigo_carrito" />
+          <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
+          <ScalarProperty Name="cantidad_detalle" ColumnName="cantidad_detalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Compra">
+      <EntityTypeMapping TypeName="FlowMediaModel.Compra">
+        <MappingFragment StoreEntitySet="Compra">
+          <ScalarProperty Name="id_compra" ColumnName="id_compra" />
+          <ScalarProperty Name="fecha_compra" ColumnName="fecha_compra" />
+          <ScalarProperty Name="metodopago_compra" ColumnName="metodopago_compra" />
+          <ScalarProperty Name="precio_compra" ColumnName="precio_compra" />
+          <ScalarProperty Name="numero_identificacion_usuario" ColumnName="numero_identificacion_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devolucion">
+      <EntityTypeMapping TypeName="FlowMediaModel.Devolucion">
+        <MappingFragment StoreEntitySet="Devolucion">
+          <ScalarProperty Name="codigo_devolucion" ColumnName="codigo_devolucion" />
+          <ScalarProperty Name="fecha_devolucion" ColumnName="fecha_devolucion" />
+          <ScalarProperty Name="estado_devolucion" ColumnName="estado_devolucion" />
+          <ScalarProperty Name="descripcion_devolucion" ColumnName="descripcion_devolucion" />
+          <ScalarProperty Name="id_renta" ColumnName="id_renta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inventario">
+      <EntityTypeMapping TypeName="FlowMediaModel.Inventario">
+        <MappingFragment StoreEntitySet="Inventario">
+          <ScalarProperty Name="codigo_inventario" ColumnName="codigo_inventario" />
+          <ScalarProperty Name="fecha_ingreso_inventario" ColumnName="fecha_ingreso_inventario" />
+          <ScalarProperty Name="cantidad_inventario" ColumnName="cantidad_inventario" />
+          <ScalarProperty Name="ubicacion_producto_inventario" ColumnName="ubicacion_producto_inventario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Multa">
+      <EntityTypeMapping TypeName="FlowMediaModel.Multa">
+        <MappingFragment StoreEntitySet="Multa">
+          <ScalarProperty Name="codigo_multa" ColumnName="codigo_multa" />
+          <ScalarProperty Name="fecha_multa" ColumnName="fecha_multa" />
+          <ScalarProperty Name="descripcion_multa" ColumnName="descripcion_multa" />
+          <ScalarProperty Name="monto_multa" ColumnName="monto_multa" />
+          <ScalarProperty Name="estado_multa" ColumnName="estado_multa" />
+          <ScalarProperty Name="codigo_devolucion" ColumnName="codigo_devolucion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto_Multimedia">
+      <EntityTypeMapping TypeName="FlowMediaModel.Producto_Multimedia">
+        <MappingFragment StoreEntitySet="Producto_Multimedia">
+          <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
+          <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+          <ScalarProperty Name="descripcion_producto" ColumnName="descripcion_producto" />
+          <ScalarProperty Name="tipo_producto" ColumnName="tipo_producto" />
+          <ScalarProperty Name="precio_producto" ColumnName="precio_producto" />
+          <ScalarProperty Name="cantidad_disponible_producto" ColumnName="cantidad_disponible_producto" />
+          <ScalarProperty Name="precio_producto_renta" ColumnName="precio_producto_renta" />
+          <ScalarProperty Name="clasificacion_producto" ColumnName="clasificacion_producto" />
+          <ScalarProperty Name="año_producto" ColumnName="año_producto" />
+          <ScalarProperty Name="id_compra" ColumnName="id_compra" />
+          <ScalarProperty Name="codigo_inventario" ColumnName="codigo_inventario" />
+          <ScalarProperty Name="imagen_producto" ColumnName="imagen_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Renta">
+      <EntityTypeMapping TypeName="FlowMediaModel.Renta">
+        <MappingFragment StoreEntitySet="Renta">
+          <ScalarProperty Name="id_renta" ColumnName="id_renta" />
+          <ScalarProperty Name="fecha_renta" ColumnName="fecha_renta" />
+          <ScalarProperty Name="fecha_devolucion_renta" ColumnName="fecha_devolucion_renta" />
+          <ScalarProperty Name="estado_renta" ColumnName="estado_renta" />
+          <ScalarProperty Name="numero_identificacion_usuario" ColumnName="numero_identificacion_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="FlowMediaModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="numero_identificacion_usuario" ColumnName="numero_identificacion_usuario" />
+          <ScalarProperty Name="tipo_identificacion_usuario" ColumnName="tipo_identificacion_usuario" />
+          <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+          <ScalarProperty Name="telefono_usuario" ColumnName="telefono_usuario" />
+          <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+          <ScalarProperty Name="direccion_usuario" ColumnName="direccion_usuario" />
+          <ScalarProperty Name="contraseña_usuario" ColumnName="contraseña_usuario" />
+          <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

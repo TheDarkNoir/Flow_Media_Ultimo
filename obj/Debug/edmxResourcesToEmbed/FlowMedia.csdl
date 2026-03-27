@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FlowMediaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Carrito_Compra">
+    <Key>
+      <PropertyRef Name="codigo_carrito" />
+    </Key>
+    <Property Name="codigo_carrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="numero_identificacion_usuario" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Carrito_C__numer__4222D4EF" FromRole="Carrito_Compra" ToRole="Usuario" />
+    <NavigationProperty Name="Carrito_Detalle" Relationship="Self.FK__Carrito_D__codig__4D94879B" FromRole="Carrito_Compra" ToRole="Carrito_Detalle" />
+  </EntityType>
+  <EntityType Name="Carrito_Detalle">
+    <Key>
+      <PropertyRef Name="id_detalle" />
+    </Key>
+    <Property Name="id_detalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo_carrito" Type="Int32" Nullable="false" />
+    <Property Name="codigo_producto" Type="Int32" Nullable="false" />
+    <Property Name="cantidad_detalle" Type="Int32" />
+    <NavigationProperty Name="Carrito_Compra" Relationship="Self.FK__Carrito_D__codig__4D94879B" FromRole="Carrito_Detalle" ToRole="Carrito_Compra" />
+    <NavigationProperty Name="Producto_Multimedia" Relationship="Self.FK__Carrito_D__codig__4E88ABD4" FromRole="Carrito_Detalle" ToRole="Producto_Multimedia" />
+  </EntityType>
+  <EntityType Name="Compra">
+    <Key>
+      <PropertyRef Name="id_compra" />
+    </Key>
+    <Property Name="id_compra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_compra" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="metodopago_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="precio_compra" Type="Double" Nullable="false" />
+    <Property Name="numero_identificacion_usuario" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Compra__numero_i__44FF419A" FromRole="Compra" ToRole="Usuario" />
+    <NavigationProperty Name="Producto_Multimedia" Relationship="Self.FK__Producto___id_co__49C3F6B7" FromRole="Compra" ToRole="Producto_Multimedia" />
+  </EntityType>
+  <EntityType Name="Devolucion">
+    <Key>
+      <PropertyRef Name="codigo_devolucion" />
+    </Key>
+    <Property Name="codigo_devolucion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_devolucion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado_devolucion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion_devolucion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_renta" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Renta" Relationship="Self.FK__Devolucio__id_re__3C69FB99" FromRole="Devolucion" ToRole="Renta" />
+    <NavigationProperty Name="Multa" Relationship="Self.FK__Multa__codigo_de__3F466844" FromRole="Devolucion" ToRole="Multa" />
+  </EntityType>
+  <EntityType Name="Inventario">
+    <Key>
+      <PropertyRef Name="codigo_inventario" />
+    </Key>
+    <Property Name="codigo_inventario" Type="Int32" Nullable="false" />
+    <Property Name="fecha_ingreso_inventario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cantidad_inventario" Type="Int32" Nullable="false" />
+    <Property Name="ubicacion_producto_inventario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Producto_Multimedia" Relationship="Self.FK__Producto___codig__4AB81AF0" FromRole="Inventario" ToRole="Producto_Multimedia" />
+  </EntityType>
+  <EntityType Name="Multa">
+    <Key>
+      <PropertyRef Name="codigo_multa" />
+    </Key>
+    <Property Name="codigo_multa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_multa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion_multa" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="monto_multa" Type="Double" Nullable="false" />
+    <Property Name="estado_multa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="codigo_devolucion" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Devolucion" Relationship="Self.FK__Multa__codigo_de__3F466844" FromRole="Multa" ToRole="Devolucion" />
+  </EntityType>
+  <EntityType Name="Producto_Multimedia">
+    <Key>
+      <PropertyRef Name="codigo_producto" />
+    </Key>
+    <Property Name="codigo_producto" Type="Int32" Nullable="false" />
+    <Property Name="nombre_producto" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion_producto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_producto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="precio_producto" Type="Double" Nullable="false" />
+    <Property Name="cantidad_disponible_producto" Type="Int32" Nullable="false" />
+    <Property Name="precio_producto_renta" Type="Double" Nullable="false" />
+    <Property Name="clasificacion_producto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="año_producto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_compra" Type="Int32" />
+    <Property Name="codigo_inventario" Type="Int32" Nullable="false" />
+    <Property Name="imagen_producto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Carrito_Detalle" Relationship="Self.FK__Carrito_D__codig__4E88ABD4" FromRole="Producto_Multimedia" ToRole="Carrito_Detalle" />
+    <NavigationProperty Name="Compra" Relationship="Self.FK__Producto___id_co__49C3F6B7" FromRole="Producto_Multimedia" ToRole="Compra" />
+    <NavigationProperty Name="Inventario" Relationship="Self.FK__Producto___codig__4AB81AF0" FromRole="Producto_Multimedia" ToRole="Inventario" />
+  </EntityType>
+  <EntityType Name="Renta">
+    <Key>
+      <PropertyRef Name="id_renta" />
+    </Key>
+    <Property Name="id_renta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_renta" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fecha_devolucion_renta" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="estado_renta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="numero_identificacion_usuario" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Devolucion" Relationship="Self.FK__Devolucio__id_re__3C69FB99" FromRole="Renta" ToRole="Devolucion" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Renta__numero_id__398D8EEE" FromRole="Renta" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="numero_identificacion_usuario" />
+    </Key>
+    <Property Name="numero_identificacion_usuario" Type="Int64" Nullable="false" />
+    <Property Name="tipo_identificacion_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono_usuario" Type="Int64" Nullable="false" />
+    <Property Name="email_usuario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion_usuario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contraseña_usuario" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Carrito_Compra" Relationship="Self.FK__Carrito_C__numer__4222D4EF" FromRole="Usuario" ToRole="Carrito_Compra" />
+    <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__numero_i__44FF419A" FromRole="Usuario" ToRole="Compra" />
+    <NavigationProperty Name="Renta" Relationship="Self.FK__Renta__numero_id__398D8EEE" FromRole="Usuario" ToRole="Renta" />
+  </EntityType>
+  <Association Name="FK__Carrito_C__numer__4222D4EF">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Carrito_Compra" Type="Self.Carrito_Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="numero_identificacion_usuario" />
+      </Principal>
+      <Dependent Role="Carrito_Compra">
+        <PropertyRef Name="numero_identificacion_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Carrito_D__codig__4D94879B">
+    <End Role="Carrito_Compra" Type="Self.Carrito_Compra" Multiplicity="1" />
+    <End Role="Carrito_Detalle" Type="Self.Carrito_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Carrito_Compra">
+        <PropertyRef Name="codigo_carrito" />
+      </Principal>
+      <Dependent Role="Carrito_Detalle">
+        <PropertyRef Name="codigo_carrito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Carrito_D__codig__4E88ABD4">
+    <End Role="Producto_Multimedia" Type="Self.Producto_Multimedia" Multiplicity="1" />
+    <End Role="Carrito_Detalle" Type="Self.Carrito_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto_Multimedia">
+        <PropertyRef Name="codigo_producto" />
+      </Principal>
+      <Dependent Role="Carrito_Detalle">
+        <PropertyRef Name="codigo_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Compra__numero_i__44FF419A">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="numero_identificacion_usuario" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="numero_identificacion_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Producto___id_co__49C3F6B7">
+    <End Role="Compra" Type="Self.Compra" Multiplicity="0..1" />
+    <End Role="Producto_Multimedia" Type="Self.Producto_Multimedia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compra">
+        <PropertyRef Name="id_compra" />
+      </Principal>
+      <Dependent Role="Producto_Multimedia">
+        <PropertyRef Name="id_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Devolucio__id_re__3C69FB99">
+    <End Role="Renta" Type="Self.Renta" Multiplicity="1" />
+    <End Role="Devolucion" Type="Self.Devolucion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Renta">
+        <PropertyRef Name="id_renta" />
+      </Principal>
+      <Dependent Role="Devolucion">
+        <PropertyRef Name="id_renta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Multa__codigo_de__3F466844">
+    <End Role="Devolucion" Type="Self.Devolucion" Multiplicity="1" />
+    <End Role="Multa" Type="Self.Multa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devolucion">
+        <PropertyRef Name="codigo_devolucion" />
+      </Principal>
+      <Dependent Role="Multa">
+        <PropertyRef Name="codigo_devolucion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Producto___codig__4AB81AF0">
+    <End Role="Inventario" Type="Self.Inventario" Multiplicity="1" />
+    <End Role="Producto_Multimedia" Type="Self.Producto_Multimedia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inventario">
+        <PropertyRef Name="codigo_inventario" />
+      </Principal>
+      <Dependent Role="Producto_Multimedia">
+        <PropertyRef Name="codigo_inventario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Renta__numero_id__398D8EEE">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Renta" Type="Self.Renta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="numero_identificacion_usuario" />
+      </Principal>
+      <Dependent Role="Renta">
+        <PropertyRef Name="numero_identificacion_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FlowMediaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Carrito_Compra" EntityType="Self.Carrito_Compra" />
+    <EntitySet Name="Carrito_Detalle" EntityType="Self.Carrito_Detalle" />
+    <EntitySet Name="Compra" EntityType="Self.Compra" />
+    <EntitySet Name="Devolucion" EntityType="Self.Devolucion" />
+    <EntitySet Name="Inventario" EntityType="Self.Inventario" />
+    <EntitySet Name="Multa" EntityType="Self.Multa" />
+    <EntitySet Name="Producto_Multimedia" EntityType="Self.Producto_Multimedia" />
+    <EntitySet Name="Renta" EntityType="Self.Renta" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Carrito_C__numer__4222D4EF" Association="Self.FK__Carrito_C__numer__4222D4EF">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Carrito_Compra" EntitySet="Carrito_Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Carrito_D__codig__4D94879B" Association="Self.FK__Carrito_D__codig__4D94879B">
+      <End Role="Carrito_Compra" EntitySet="Carrito_Compra" />
+      <End Role="Carrito_Detalle" EntitySet="Carrito_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Carrito_D__codig__4E88ABD4" Association="Self.FK__Carrito_D__codig__4E88ABD4">
+      <End Role="Producto_Multimedia" EntitySet="Producto_Multimedia" />
+      <End Role="Carrito_Detalle" EntitySet="Carrito_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Compra__numero_i__44FF419A" Association="Self.FK__Compra__numero_i__44FF419A">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Producto___id_co__49C3F6B7" Association="Self.FK__Producto___id_co__49C3F6B7">
+      <End Role="Compra" EntitySet="Compra" />
+      <End Role="Producto_Multimedia" EntitySet="Producto_Multimedia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Devolucio__id_re__3C69FB99" Association="Self.FK__Devolucio__id_re__3C69FB99">
+      <End Role="Renta" EntitySet="Renta" />
+      <End Role="Devolucion" EntitySet="Devolucion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Multa__codigo_de__3F466844" Association="Self.FK__Multa__codigo_de__3F466844">
+      <End Role="Devolucion" EntitySet="Devolucion" />
+      <End Role="Multa" EntitySet="Multa" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Producto___codig__4AB81AF0" Association="Self.FK__Producto___codig__4AB81AF0">
+      <End Role="Inventario" EntitySet="Inventario" />
+      <End Role="Producto_Multimedia" EntitySet="Producto_Multimedia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Renta__numero_id__398D8EEE" Association="Self.FK__Renta__numero_id__398D8EEE">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Renta" EntitySet="Renta" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

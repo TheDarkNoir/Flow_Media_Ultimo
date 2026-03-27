@@ -1,0 +1,143 @@
+/* editarperfil.css - Styles for EditarPerfil view */
+
+.editar-card {
+    background: #fff;
+    color: #111;
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.editar-avatar-section {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.editar-avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #333;
+    background: #f0f0f0;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editar-title {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 8px 20px;
+    border: 2px solid #111;
+    border-radius: 6px;
+    background: #fff;
+    margin: 0;
+}
+
+.editar-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+    margin-top: 8px;
+}
+
+.editar-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.editar-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.editar-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background: #f5f6f7;
+    font-size: 14px;
+    color: #111;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.editar-input:focus {
+    border-color: #0b6db0;
+}
+
+.editar-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.editar-buttons {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+    justify-content: center;
+}
+
+.btn-cancelar {
+    flex: 1;
+    max-width: 280px;
+    display: inline-block;
+    text-align: center;
+    padding: 14px 24px;
+    background: #e0e0e0;
+    color: #111;
+    border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancelar:hover {
+    background: #ccc;
+    text-decoration: none;
+    color: #111;
+}
+
+.btn-guardar {
+    flex: 1;
+    max-width: 280px;
+    padding: 14px 24px;
+    background: #0b6db0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-guardar:hover {
+    background: #095a94;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 700px) {
+    .editar-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editar-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-cancelar,
+    .btn-guardar {
+        max-width: 100%;
+    }
+}

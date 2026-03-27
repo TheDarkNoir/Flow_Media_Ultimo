@@ -1,0 +1,407 @@
+﻿/* =========================================================
+   FLOW MEDIA - CATALOGO SPA STYLE
+   Tema oscuro moderno tipo Netflix / PlayStation Store
+=========================================================*/
+
+body {
+    background: #071a27;
+    color: #cbe3ee;
+    font-family: 'Segoe UI',sans-serif;
+}
+
+
+/* =========================================================
+   HEADER DEL CATÁLOGO, no toques angelly
+=========================================================*/
+
+.catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.catalog-title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* ---------------------------------------------------------
+   Ajuste del tamaño del icono/ logo para que coincida con
+   la apariencia de MenuCliente 
+   Se añaden selectores más específicos para forzar el tamaño
+   y evitar que otra regla haga la imagen enorme en el catálogo, toco aprenderlo a las malas.
+---------------------------------------------------------*/
+header.mc-header .logo-img,
+.mc-logo .logo-img,
+.header-inner .logo-img,
+.client-header .logo-img,
+.logo .logo-img,
+.logo-img,
+.client-shell header .logo-img {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 56px !important;
+    max-height: 40px !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+/* Asegura que el contenedor tenga el tamaño correcto (coincide con MenuClient.css) */
+.mc-logo {
+    width: 56px; /* coincide con MenuClient.css */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.client-footer .footer-logo,
+.footer-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+@media only screen and (max-width: 1024px) and (max-height: 768px) {
+}
+
+/* ===============================
+   BUSCADOR
+================================*/
+.catalog-search {
+    display: flex;
+    align-items: center;
+    background: #0b2e42;
+    border-radius: 999px;
+    padding: 8px 14px;
+    transition: .3s;
+}
+
+    /* efecto focus tipo Netflix No pregunten */
+    .catalog-search:focus-within {
+        box-shadow: 0 0 12px #0ea5ff66;
+    }
+
+    .catalog-search input {
+        background: transparent;
+        border: none;
+        color: white;
+        outline: none;
+    }
+
+
+
+/* =========================================================
+   BOTONES FILTRO
+=========================================================*/
+
+.catalog-filters {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-btn {
+    background: #0b3b52;
+    border: none;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+    /* ⭐ IMPORTANTE
+   sensación interactiva lo que crea el efecto de transcion de manera que no se dale la transicion */
+    .filter-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .filter-btn.active {
+        background: #0ea5ff;
+        color: #071a27;
+    }
+
+
+
+/* =========================================================
+   GRID DEL CATÁLOGO
+=========================================================*/
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 24px;
+}
+
+
+/* =========================================================
+   TARJETA PRINCIPAL ,Jair no toques esta parte es la magia del diseño ten fe 
+=========================================================*/
+
+.catalog-card {
+    background: #062a3a;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+
+    /* =========================================================
+    EFECTO NETFLIX HOVER Angelly no toques esta parte es la magia del diseño ten confianza en el proceso creo
+=========================================================*/
+
+    .catalog-card:hover {
+        transform: scale(1.07);
+        z-index: 10;
+        box-shadow: 0 15px 40px rgba(0,0,0,.7), 0 0 25px #0ea5ff55;
+    }
+
+
+/* =========================================================
+   IMAGENES MINIATURA, el zoom interno es la magia del diseño de este catálogo, no lo toques por nada del mundo
+=========================================================*/
+
+.thumb {
+    height: 260px;
+    overflow: hidden;
+}
+
+    .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .6s ease;
+        display: block;
+        max-height: 320px; /* evita imágenes excesivamente grandes */
+    }
+
+/* 🔥 zoom interno estilo Netflix */
+.catalog-card:hover .thumb img {
+    transform: scale(1.12);
+}
+
+
+/* =========================================================
+   BADGE CATEGORIA es la estrellita del diseño, no lo toques por nada del mundo y sirve para mostrar la categoria del producto, es importante para el diseño
+=========================================================*/
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,.7);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   INFORMACIÓN
+=========================================================*/
+
+.meta {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    height: 160px;
+}
+
+.category {
+    color: #7dd3fc;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.meta h3 {
+    margin: 6px 0;
+    font-size: 17px;
+}
+
+.meta p {
+    font-size: 13px;
+    color: #9fb2c6;
+}
+
+
+/* precio */
+.price {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 900;
+    color: #0ea5ff;
+}
+
+
+/* =========================================================
+   ================= DETAIL VIEW =================
+   ESTA ES LA MAGIA SPA DE ESTE CATÁLOGO, ES LA TRANSICIÓN DE ENTRADA DEL DETALLE
+=========================================================*/
+
+#detailView {
+    animation: fadeSlide .45s ease;
+}
+
+/* 🎬 transición Netflix */
+@keyframes fadeSlide {
+
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   CONTENEDOR DETALLE
+=========================================================*/
+
+.detail-inner {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* imagen grande */
+.detail-image img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.8);
+    max-width: 420px; /* restringe tamaño máximo */
+    height: auto;
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   INFO PRODUCTO
+=========================================================*/
+
+.detail-info h2 {
+    font-size: 42px;
+    font-weight: 900;
+}
+
+.detail-info p {
+    color: #a8c4d6;
+}
+
+
+/* =========================================================
+   OPCIONES PRECIO
+=========================================================*/
+
+.price-options {
+    margin-top: 20px;
+}
+
+.price-option {
+    background: #0b2e42;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: .25s;
+}
+
+    /*  sensación selectable */
+    .price-option:hover {
+        background: #0ea5ff33;
+    }
+
+
+
+
+/* =========================================================
+   BOTON PRINCIPAL
+=========================================================*/
+
+.primary-action {
+    margin-top: 20px;
+    background: #0ea5ff;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+    /* efecto playstation store */
+    .primary-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px #0ea5ff88;
+    }
+
+
+/* =========================================================
+   BOTON VOLVER
+=========================================================*/
+
+.back-btn {
+    margin-bottom: 20px;
+    background: none;
+    border: none;
+    color: #7dd3fc;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   REVIEWS
+=========================================================*/
+
+.detail-reviews {
+    margin-top: 30px;
+    padding: 20px;
+    background: #062a3a;
+    border-radius: 12px;
+}
+
+.review-item {
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    padding: 10px 0;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+=========================================================*/
+
+@media(max-width:1400px) {
+    .catalog-grid {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+
+@media(max-width:1000px) {
+
+    .catalog-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .detail-inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:600px) {
+    .catalog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

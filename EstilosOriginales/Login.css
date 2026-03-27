@@ -1,0 +1,23 @@
+﻿/* Login.css - dark themed login panel */
+:root{ --bg:#071b2b; --panel:#0d2230; --accent:#00d38a; --muted:#9fb2c6 }
+html,body{height:100%;margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#042233,#071b2b);color:#fff}
+.login-page{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:60px 20px}
+.login-panel{width:420px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.06));border-radius:12px;padding:34px 28px;box-shadow:0 20px 40px rgba(2,10,20,0.6);text-align:center}
+.welcome{margin:0;font-size:26px;letter-spacing:1px}
+.subtitle{color:var(--muted);font-size:13px;margin:8px 0 20px}
+.login-form{margin-top:6px;text-align:left}
+.field-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:block}
+.input-wrap{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:8px;margin-bottom:14px}
+.input-wrap .icon{display:inline-block;width:28px;text-align:center;color:var(--muted);margin-right:8px}
+.input{flex:1;background:transparent;border:none;color:#fff;outline:none;padding:6px 8px}
+.btn-primary{width:100%;background:var(--accent);color:#042633;border:none;padding:12px;border-radius:8px;font-weight:700;cursor:pointer}
+.register{margin-top:12px;text-align:center;color:var(--muted);font-size:13px}
+
+/* Footer */
+.login-footer{background:transparent;padding:28px 0;margin-top:36px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.logo-mark.small{background:#0ea5ff;color:#fff;padding:10px 12px;border-radius:8px}
+.btn-exit-footer{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:8px 12px;border-radius:8px}
+.mc-footer-left .logo-mark.small{background:var(--accent);background-image:url('../Imagenes/FlowMedia.png') ;background-size:cover;background-position:center;margin-bottom:10px;color:#fff;padding:10px 12px;border-radius:10px}
+
+@media(max-width:480px){.login-panel{width:92%;padding:24px}}

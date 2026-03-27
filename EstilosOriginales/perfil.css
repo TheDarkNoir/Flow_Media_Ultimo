@@ -1,0 +1,46 @@
+/* perfil.css - styles for PerfilCliente view */
+.perfil-page { display:flex; gap:24px; max-width:1100px; margin:24px auto; }
+.perfil-sidebar { width:260px; background:#06202a; padding:18px; border-radius:12px; color:#dfeef6; }
+.perfil-avatar { text-align:center; margin-bottom:18px; }
+.avatar-circle { width:72px; height:72px; line-height:72px; border-radius:50%; background:#0b3a47; margin:0 auto 8px; font-weight:700; font-size:28px; display:flex; align-items:center; justify-content:center; }
+.perfil-name { font-weight:700; }
+.perfil-role { font-size:12px; color:#9fb0bd; margin-top:4px; }
+.perfil-nav { margin-top:16px; display:flex; flex-direction:column; gap:8px; }
+.perfil-nav .nav-item { color:#cfe8f5; text-decoration:none; padding:10px; border-radius:8px; display:block; }
+.perfil-nav .nav-item.active { background:#0b6db0; color:#fff; }
+
+.perfil-main { flex:1; }
+.profile-card { background:#fff; color:#111; border-radius:16px; padding:24px; }
+.profile-header { display:flex; gap:18px; align-items:center; }
+.profile-avatar-large { width:84px; height:84px; border-radius:50%; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:34px; }
+.profile-info-main h1 { margin:0; }
+.profile-info-main p { margin:6px 0 12px 0; color:#666; }
+.btn-edit-profile { background:#0b6db0; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; }
+
+.profile-stats { display:flex; gap:12px; margin-top:18px; }
+.stat-item { background:#f7f8fa; padding:12px; border-radius:8px; flex:1; text-align:center; }
+.stat-number { font-weight:800; font-size:18px; }
+
+.datos { margin-top:18px; }
+.datos h3 { background:#f3f5f7; display:inline-block; padding:6px 12px; border-radius:6px; }
+.datos-table { width:100%; border-collapse:collapse; margin-top:12px; }
+.datos-table td { padding:10px; border:1px solid #ddd; }
+.datos-table td:first-child { width:180px; font-weight:700; background:#f5f7f9; }
+
+.profile-actions { margin-top:18px; text-align:center; }
+.btn-primary { background:#0b6db0; color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; }
+
+/* Compras styles */
+.compras-panel { margin-top:8px; }
+.compras-title { display:inline-block; background:#071a28; color:#fff; padding:10px 18px; font-weight:800; border-radius:6px; box-shadow: 6px 6px 0 rgba(0,0,0,0.6); }
+.compras-box { margin-top:16px; background:linear-gradient(180deg,#0b2a36,#081f28); padding:18px; border-radius:18px; border:4px solid rgba(0,0,0,0.5); }
+.compras-empty { color:#9fb0bd; text-align:center; padding:24px; }
+.compras-list { list-style:none; padding:0; margin:0; }
+.compra-item { display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid rgba(255,255,255,0.03); }
+.compra-id { font-weight:700; color:#a6e0ff; }
+.compra-item-title { color:#e6eef6; }
+.compra-fecha { color:#9fb0bd; font-size:13px; }
+
+/* Sidebar coherence */
+.perfil-nav .nav-item { padding:12px 14px; border-radius:10px; display:block; color:#cfe8f5; }
+.perfil-nav .nav-item.active { background:#0b6db0; color:#fff; box-shadow: inset 0 -6px 0 rgba(0,0,0,0.25); }
